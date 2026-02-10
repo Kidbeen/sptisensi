@@ -3,85 +3,83 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SPT Sensi</title>
+<title>SPT Sensi Pro</title>
 <style>
   body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #121212;
-    color: #fff;
+    margin:0;
+    font-family:Arial,sans-serif;
+    background-color:#121212;
+    color:#fff;
   }
-  header {
-    background-color: #16a085;
-    text-align: center;
-    padding: 20px;
-    font-size: 28px;
-    font-weight: bold;
+  header{
+    background-color:#16a085;
+    text-align:center;
+    padding:20px;
+    font-size:28px;
+    font-weight:bold;
   }
-  nav {
-    display: flex;
-    justify-content: space-around;
-    background-color: #1abc9c;
-    padding: 10px 0;
+  nav{
+    display:flex;
+    justify-content:space-around;
+    background-color:#1abc9c;
+    padding:10px 0;
   }
-  nav button {
-    background-color: #16a085;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 10px;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
+  nav button{
+    background-color:#16a085;
+    border:none;
+    padding:10px 20px;
+    border-radius:10px;
+    color:#fff;
+    font-size:16px;
+    cursor:pointer;
   }
-  nav button:hover {
-    background-color: #1fffc0;
+  nav button:hover{background-color:#1fffc0;}
+  section{padding:20px;display:none;}
+  section.active{display:block;}
+  .card{
+    background-color:#1e1e1e;
+    padding:15px;
+    margin:10px 0;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
   }
-  section {
-    padding: 20px;
-    display: none;
+  .card img{
+    width:60px;height:60px;border-radius:50%;margin-right:15px;
   }
-  section.active {
-    display: block;
+  .card-info{flex:1;}
+  .card button{
+    background-color:#16a085;
+    border:none;
+    padding:5px 10px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-top:5px;
   }
-  .card {
-    background-color: #1e1e1e;
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 10px;
+  input[type=range]{width:100%;}
+  .slider-container{margin:15px 0;}
+  .slider-value{text-align:right;margin-top:-20px;margin-bottom:10px;}
+  .copy-button{
+    margin-top:10px;
+    background-color:#16a085;
+    padding:10px;
+    border-radius:10px;
+    cursor:pointer;
+    width:100%;
   }
-  .card button {
-    background-color: #16a085;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 5px;
-    width: 100%;
-  }
-  input[type=range] {
-    width: 100%;
-  }
-  .slider-container {
-    margin: 15px 0;
-  }
-  .slider-value {
-    text-align: right;
-    margin-top: -20px;
-    margin-bottom: 10px;
-  }
-  .copy-button {
-    margin-top: 10px;
-    background-color: #16a085;
-    padding: 10px;
-    border-radius: 10px;
-    cursor: pointer;
-    width: 100%;
+  #search-player{
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    border:none;
+    margin-bottom:15px;
+    font-size:16px;
   }
 </style>
 </head>
 <body>
 
-<header>🔥 SPT SENSI 🔥</header>
+<header>🔥 SPT SENSI PRO 🔥</header>
 
 <nav>
   <button onclick="showSection('home')">Home</button>
@@ -90,133 +88,139 @@
   <button onclick="showSection('ajuda')">Ajuda</button>
 </nav>
 
-<!-- Home -->
 <section id="home" class="active">
-  <h2>Bem-vindo ao SPT Sensi!</h2>
-  <p>Biblioteca de sensis de jogadores famosos do Free Fire atualizadas até 200.</p>
+  <h2>Bem-vindo ao SPT Sensi PRO!</h2>
+  <p>Biblioteca de sensis de jogadores famosos do Free Fire.</p>
   <p>Crie sua própria sensi compatível com bot para qualquer celular!</p>
 </section>
 
-<!-- Biblioteca -->
 <section id="biblioteca">
   <h2>Biblioteca de Sensis</h2>
+  <input type="text" id="search-player" placeholder="Pesquisar jogador..." oninput="searchPlayer()">
   <div id="cards-container"></div>
 </section>
 
-<!-- Criador de Sensi -->
 <section id="criador">
-  <h2>Criar Minha Sensi para Bot</h2>
-  <label>Escolha seu dispositivo:</label>
-  <select id="device-select">
-    <option value="400">Xiaomi / Redmi (DPI 400)</option>
-    <option value="480">Samsung / Outro Android (DPI 480)</option>
-    <option value="520">Outro Android (DPI 520)</option>
-    <option value="640">iPhone / iOS (DPI 640)</option>
-  </select>
-  <button onclick="generateSensi()">Gerar Sensi</button>
+  <h2>Criador de Sensi Interativo</h2>
+  <button onclick="startBot()">Iniciar Bot</button>
+  <div id="bot-container" style="display:none;margin-top:15px;"></div>
 
   <div id="sensi-sliders" style="display:none;">
     <h3>Valores Gerados</h3>
-    <div class="slider-container">
-      Geral: <span id="geral-val">100</span>
+    <div class="slider-container">Geral: <span id="geral-val">100</span>
       <input type="range" id="geral" min="0" max="200" value="100" oninput="updateValue('geral')">
     </div>
-    <div class="slider-container">
-      Red Dot: <span id="reddot-val">100</span>
+    <div class="slider-container">Red Dot: <span id="reddot-val">100</span>
       <input type="range" id="reddot" min="0" max="200" value="100" oninput="updateValue('reddot')">
     </div>
-    <div class="slider-container">
-      2x: <span id="x2-val">100</span>
+    <div class="slider-container">2x: <span id="x2-val">100</span>
       <input type="range" id="x2" min="0" max="200" value="100" oninput="updateValue('x2')">
     </div>
-    <div class="slider-container">
-      4x: <span id="x4-val">100</span>
+    <div class="slider-container">4x: <span id="x4-val">100</span>
       <input type="range" id="x4" min="0" max="200" value="100" oninput="updateValue('x4')">
     </div>
-    <div class="slider-container">
-      AWM: <span id="awm-val">100</span>
+    <div class="slider-container">AWM: <span id="awm-val">100</span>
       <input type="range" id="awm" min="0" max="200" value="100" oninput="updateValue('awm')">
     </div>
-
     <p>DPI: <span id="dpi-sug">400</span></p>
     <button class="copy-button" onclick="copySensi()">Copiar para Bot</button>
   </div>
 </section>
 
-<!-- Ajuda -->
 <section id="ajuda">
   <h2>Ajuda</h2>
-  <p>Como usar o SPT Sensi:</p>
   <ul>
-    <li>Vá na <strong>Biblioteca</strong> e copie a sensi dos jogadores famosos.</li>
-    <li>No <strong>Criador</strong> escolha seu dispositivo e clique em <strong>Gerar Sensi</strong>.</li>
-    <li>Copie os valores para o bot e use no Free Fire.</li>
-    <li>Salve seus valores no perfil local para usar depois.</li>
+    <li>Na <strong>Biblioteca</strong> veja os jogadores, clique para abrir a sensi completa.</li>
+    <li>No <strong>Criador</strong> clique em <strong>Iniciar Bot</strong> e responda perguntas para gerar a sensi.</li>
+    <li>Copie os valores para bot ou manualmente.</li>
   </ul>
 </section>
 
 <script>
-// Seções
+// Funções de navegação
 function showSection(id){
   document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 
-// Lista de jogadores famosos (exemplo inicial, você pode expandir)
-const players = [
-  {name:"Nobru", geral:150, reddot:140, x2:130, x4:120, awm:110},
-  {name:"Cerol", geral:160, reddot:150, x2:140, x4:130, awm:120},
-  {name:"Fluxo", geral:140, reddot:135, x2:130, x4:125, awm:120},
-  {name:"Loud", geral:155, reddot:150, x2:145, x4:140, awm:130},
-  {name:"Mitos", geral:170, reddot:160, x2:150, x4:145, awm:135},
-  {name:"Patife", geral:145, reddot:140, x2:135, x4:130, awm:125},
-  {name:"Shark", geral:150, reddot:145, x2:140, x4:135, awm:130},
-  {name:"PlayHard", geral:155, reddot:150, x2:145, x4:140, awm:135},
-  {name:"Dyox", geral:160, reddot:155, x2:150, x4:145, awm:140},
-  {name:"Rakin", geral:165, reddot:160, x2:155, x4:150, awm:145}
+// Lista de jogadores (exemplo com 60+ fictícios, você pode expandir)
+const players=[
+{name:"Nobru", img:"https://i.imgur.com/F5vQZzV.jpg", geral:150, reddot:140, x2:130, x4:120, awm:110},
+{name:"Cerol", img:"https://i.imgur.com/xyz123.jpg", geral:160, reddot:150, x2:140, x4:130, awm:120},
+{name:"Fluxo", img:"https://i.imgur.com/abc456.jpg", geral:140, reddot:135, x2:130, x4:125, awm:120},
+{name:"Loud", img:"https://i.imgur.com/def789.jpg", geral:155, reddot:150, x2:145, x4:140, awm:130},
+{name:"Mitos", img:"https://i.imgur.com/ghi101.jpg", geral:170, reddot:160, x2:150, x4:145, awm:135},
+{name:"Marechal", img:"https://i.imgur.com/jkl112.jpg", geral:155, reddot:145, x2:140, x4:135, awm:130},
+{name:"MK9", img:"https://i.imgur.com/mno131.jpg", geral:160, reddot:150, x2:145, x4:140, awm:135},
+{name:"Sadx", img:"https://i.imgur.com/pqr415.jpg", geral:150, reddot:140, x2:135, x4:130, awm:125},
+{name:"Maxxo", img:"https://i.imgur.com/stu161.jpg", geral:145, reddot:135, x2:130, x4:125, awm:120},
+{name:"Falpz", img:"https://i.imgur.com/vwx171.jpg", geral:155, reddot:145, x2:140, x4:135, awm:130},
+{name:"Ted1v4", img:"https://i.imgur.com/yz181.jpg", geral:160, reddot:150, x2:145, x4:140, awm:135},
+// ... adicionar mais até 60+ jogadores
 ];
 
 // Mostrar biblioteca
-const container = document.getElementById('cards-container');
+const container=document.getElementById('cards-container');
 players.forEach(p=>{
-  const card = document.createElement('div');
+  const card=document.createElement('div');
   card.className='card';
-  card.innerHTML=`<strong>${p.name}</strong><br>
-  Geral: ${p.geral} | Red Dot: ${p.reddot} | 2x: ${p.x2} | 4x: ${p.x4} | AWM: ${p.awm}<br>
-  <button onclick='copyPlayer(${JSON.stringify(p)})'>Copiar Valores</button>`;
+  card.innerHTML=`<img src="${p.img}" alt="${p.name}"><div class="card-info"><strong>${p.name}</strong><br>
+  <button onclick='openPlayer(${JSON.stringify(p)})'>Ver Sensi</button></div>`;
   container.appendChild(card);
 });
 
-// Copiar valores da biblioteca
-function copyPlayer(p){
-  const text=`Geral:${p.geral}, Red Dot:${p.reddot}, 2x:${p.x2}, 4x:${p.x4}, AWM:${p.awm}`;
-  navigator.clipboard.writeText(text);
-  alert("Valores copiados para bot!");
+// Pesquisa de jogadores
+function searchPlayer(){
+  const query=document.getElementById('search-player').value.toLowerCase();
+  container.innerHTML='';
+  players.filter(p=>p.name.toLowerCase().includes(query)).forEach(p=>{
+    const card=document.createElement('div');
+    card.className='card';
+    card.innerHTML=`<img src="${p.img}" alt="${p.name}"><div class="card-info"><strong>${p.name}</strong><br>
+    <button onclick='openPlayer(${JSON.stringify(p)})'>Ver Sensi</button></div>`;
+    container.appendChild(card);
+  });
 }
 
-// Criador de Sensi
-function generateSensi(){
-  const dpi=document.getElementById('device-select').value;
-  document.getElementById('dpi-sug').innerText=dpi;
+// Abrir jogador
+function openPlayer(p){
+  alert(`${p.name}\nGeral:${p.geral}\nRed Dot:${p.reddot}\n2x:${p.x2}\n4x:${p.x4}\nAWM:${p.awm}`);
+}
+
+// Criador tipo bot
+function startBot(){
+  const botContainer=document.getElementById('bot-container');
+  botContainer.style.display='block';
+  botContainer.innerHTML='';
+  askDPI(botContainer);
+}
+
+function askDPI(container){
+  container.innerHTML=`<p>Escolha DPI do seu celular:</p>
+  <button onclick="askSensi('Alta')">Alta</button>
+  <button onclick="askSensi('Média')">Média</button>
+  <button onclick="askSensi('Baixa')">Baixa</button>`;
+}
+
+function askSensi(dpiChoice){
+  const container=document.getElementById('bot-container');
+  const dpiMap={'Alta':520,'Média':400,'Baixa':320};
+  const dpi=dpiMap[dpiChoice]||400;
+  container.innerHTML=`<p>Deseja sensi Alta ou Baixa?</p>
+  <button onclick="generateBotSensi('${dpi}','Alta')">Alta</button>
+  <button onclick="generateBotSensi('${dpi}','Baixa')">Baixa</button>`;
+}
+
+function generateBotSensi(dpi,sensiType){
+  const vals={Geral: Math.floor(Math.random()*101)+100, RedDot:Math.floor(Math.random()*101)+100, X2:Math.floor(Math.random()*101)+100, X4:Math.floor(Math.random()*101)+100, AWM:Math.floor(Math.random()*101)+100};
   document.getElementById('sensi-sliders').style.display='block';
-
-  // Gerar valores aleatórios compatíveis com bot
-  function randVal(){return Math.floor(Math.random()*101)+100;} // 100 a 200
-  const vals={
-    geral:randVal(),
-    reddot:randVal(),
-    x2:randVal(),
-    x4:randVal(),
-    awm:randVal()
-  };
-
+  document.getElementById('dpi-sug').innerText=dpi;
   ['geral','reddot','x2','x4','awm'].forEach(id=>{
-    document.getElementById(id).value=vals[id];
-    document.getElementById(id+'-val').innerText=vals[id];
+    const val=vals[id==='x2'?'X2':id==='x4'?'X4':id==='awm'?'AWM':'Geral'];
+    document.getElementById(id).value=val;
+    document.getElementById(id+'-val').innerText=val;
   });
-
-  // Salvar local
-  localStorage.setItem('meuPerfilSensi', JSON.stringify({dpi: dpi, ...vals}));
+  alert(`Sensi gerada para bot!\nDPI:${dpi}\nGeral:${vals.Geral}\nRed Dot:${vals.RedDot}\n2x:${vals.X2}\n4x:${vals.X4}\nAWM:${vals.AWM}`);
 }
 
 // Atualizar slider
@@ -224,7 +228,7 @@ function updateValue(id){
   document.getElementById(id+'-val').innerText=document.getElementById(id).value;
 }
 
-// Copiar valores do criador
+// Copiar valores
 function copySensi(){
   const geral=document.getElementById('geral').value;
   const reddot=document.getElementById('reddot').value;
@@ -236,8 +240,7 @@ function copySensi(){
   navigator.clipboard.writeText(text);
   alert("Valores copiados para bot!");
 }
-
 </script>
 
 </body>
-  </html>
+        </html>
