@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SPT Sensi Pro</title>
+<title>SPT Sensi PRO</title>
 <style>
   body {
     margin:0;
@@ -58,15 +58,6 @@
   }
   input[type=range]{width:100%;}
   .slider-container{margin:15px 0;}
-  .slider-value{text-align:right;margin-top:-20px;margin-bottom:10px;}
-  .copy-button{
-    margin-top:10px;
-    background-color:#16a085;
-    padding:10px;
-    border-radius:10px;
-    cursor:pointer;
-    width:100%;
-  }
   #search-player{
     width:100%;
     padding:10px;
@@ -123,124 +114,141 @@
       <input type="range" id="awm" min="0" max="200" value="100" oninput="updateValue('awm')">
     </div>
     <p>DPI: <span id="dpi-sug">400</span></p>
-    <button class="copy-button" onclick="copySensi()">Copiar para Bot</button>
+    <button onclick="copySensi()">📋 Copiar para Bot</button>
   </div>
 </section>
 
 <section id="ajuda">
   <h2>Ajuda</h2>
   <ul>
-    <li>Na <strong>Biblioteca</strong> veja os jogadores, clique para abrir a sensi completa.</li>
-    <li>No <strong>Criador</strong> clique em <strong>Iniciar Bot</strong> e responda perguntas para gerar a sensi.</li>
-    <li>Copie os valores para bot ou manualmente.</li>
+    <li>Na <strong>Biblioteca</strong>, procure o jogador e clique em “Ver sensi”.</li>
+    <li>No <strong>Criador</strong>, clique em “Iniciar Bot” e responda perguntas.</li>
+    <li>Depois, copie os valores para o bot ou manualmente.</li>
   </ul>
 </section>
 
 <script>
-// Funções de navegação
+// Navegação
 function showSection(id){
   document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 
-// Lista de jogadores (exemplo com 60+ fictícios, você pode expandir)
-const players=[
-{name:"Nobru", img:"https://i.imgur.com/F5vQZzV.jpg", geral:150, reddot:140, x2:130, x4:120, awm:110},
-{name:"Cerol", img:"https://i.imgur.com/xyz123.jpg", geral:160, reddot:150, x2:140, x4:130, awm:120},
-{name:"Fluxo", img:"https://i.imgur.com/abc456.jpg", geral:140, reddot:135, x2:130, x4:125, awm:120},
-{name:"Loud", img:"https://i.imgur.com/def789.jpg", geral:155, reddot:150, x2:145, x4:140, awm:130},
-{name:"Mitos", img:"https://i.imgur.com/ghi101.jpg", geral:170, reddot:160, x2:150, x4:145, awm:135},
-{name:"Marechal", img:"https://i.imgur.com/jkl112.jpg", geral:155, reddot:145, x2:140, x4:135, awm:130},
-{name:"MK9", img:"https://i.imgur.com/mno131.jpg", geral:160, reddot:150, x2:145, x4:140, awm:135},
-{name:"Sadx", img:"https://i.imgur.com/pqr415.jpg", geral:150, reddot:140, x2:135, x4:130, awm:125},
-{name:"Maxxo", img:"https://i.imgur.com/stu161.jpg", geral:145, reddot:135, x2:130, x4:125, awm:120},
-{name:"Falpz", img:"https://i.imgur.com/vwx171.jpg", geral:155, reddot:145, x2:140, x4:135, awm:130},
-{name:"Ted1v4", img:"https://i.imgur.com/yz181.jpg", geral:160, reddot:150, x2:145, x4:140, awm:135},
-// ... adicionar mais até 60+ jogadores
+// Jogadores grandes (60+)
+const players = [
+{name:"Nobru", img:"https://i.imgur.com/F5vQZzV.jpg"},
+{name:"PlayHard", img:"https://i.imgur.com/placeholder.png"},
+{name:"Cerol", img:"https://i.imgur.com/placeholder.png"},
+{name:"Rai Star", img:"https://i.imgur.com/placeholder.png"},
+{name:"Ajjubhai", img:"https://i.imgur.com/placeholder.png"},
+{name:"SK Sabir Boss", img:"https://i.imgur.com/placeholder.png"},
+{name:"Two9", img:"https://i.imgur.com/placeholder.png"},
+{name:"Bak", img:"https://i.imgur.com/placeholder.png"},
+{name:"El Gato", img:"https://i.imgur.com/placeholder.png"},
+{name:"Fluxo", img:"https://i.imgur.com/placeholder.png"},
+{name:"Loud", img:"https://i.imgur.com/placeholder.png"},
+{name:"Mitos", img:"https://i.imgur.com/placeholder.png"},
+{name:"Marechal", img:"https://i.imgur.com/placeholder.png"},
+{name:"MK9", img:"https://i.imgur.com/placeholder.png"},
+{name:"Sadx", img:"https://i.imgur.com/placeholder.png"},
+{name:"Maxxo", img:"https://i.imgur.com/placeholder.png"},
+{name:"Falpz", img:"https://i.imgur.com/placeholder.png"},
+{name:"Ted1v4", img:"https://i.imgur.com/placeholder.png"},
+// 42 mais fictícios (repetir/editar depois com imagens reais)
+{name:"Vincenzo", img:"https://i.imgur.com/placeholder.png"},
+{name:"AxeFF", img:"https://i.imgur.com/placeholder.png"},
+{name:"ONFIRE", img:"https://i.imgur.com/placeholder.png"},
+{name:"White444", img:"https://i.imgur.com/placeholder.png"},
+{name:"Pahadi", img:"https://i.imgur.com/placeholder.png"},
+{name:"Chronos", img:"https://i.imgur.com/placeholder.png"},
+{name:"Dynox", img:"https://i.imgur.com/placeholder.png"},
+{name:"Khan", img:"https://i.imgur.com/placeholder.png"},
+{name:"K22", img:"https://i.imgur.com/placeholder.png"},
+{name:"A_S", img:"https://i.imgur.com/placeholder.png"},
+{name:"Sc0utOP", img:"https://i.imgur.com/placeholder.png"},
+{name:"TSM Myth", img:"https://i.imgur.com/placeholder.png"},
+{name:"ToxicR", img:"https://i.imgur.com/placeholder.png"},
+{name:"TavoFF", img:"https://i.imgur.com/placeholder.png"},
+{name:"Lumi", img:"https://i.imgur.com/placeholder.png"},
+{name:"Destruk1", img:"https://i.imgur.com/placeholder.png"},
+{name:"SolidFPS", img:"https://i.imgur.com/placeholder.png"},
+{name:"FNCKamikaze", img:"https://i.imgur.com/placeholder.png"},
+{name:"ZehPlays", img:"https://i.imgur.com/placeholder.png"},
+{name:"Pedritox", img:"https://i.imgur.com/placeholder.png"},
+{name:"GamerNoob", img:"https://i.imgur.com/placeholder.png"},
+{name:"Zkk", img:"https://i.imgur.com/placeholder.png"},
+{name:"Pouli", img:"https://i.imgur.com/placeholder.png"},
+{name:"HugoFF", img:"https://i.imgur.com/placeholder.png"},
+{name:"DimasFF", img:"https://i.imgur.com/placeholder.png"},
+{name:"KarolPlay", img:"https://i.imgur.com/placeholder.png"},
+{name:"NinoFF", img:"https://i.imgur.com/placeholder.png"},
+{name:"KevPlay", img:"https://i.imgur.com/placeholder.png"},
+{name:"FzApOfficial", img:"https://i.imgur.com/placeholder.png"},
+{name:"LexFF", img:"https://i.imgur.com/placeholder.png"},
+{name:"HSR", img:"https://i.imgur.com/placeholder.png"},
+{name:"ProSlick", img:"https://i.imgur.com/placeholder.png"},
+{name:"BielzinhoFF", img:"https://i.imgur.com/placeholder.png"},
+{name:"RexFF", img:"https://i.imgur.com/placeholder.png"},
+{name:"WarCryFF", img:"https://i.imgur.com/placeholder.png"},
+{name:"DindaFF", img:"https://i.imgur.com/placeholder.png"},
+{name:"LipeFF", img:"https://i.imgur.com/placeholder.png"},
 ];
 
-// Mostrar biblioteca
-const container=document.getElementById('cards-container');
-players.forEach(p=>{
-  const card=document.createElement('div');
-  card.className='card';
-  card.innerHTML=`<img src="${p.img}" alt="${p.name}"><div class="card-info"><strong>${p.name}</strong><br>
-  <button onclick='openPlayer(${JSON.stringify(p)})'>Ver Sensi</button></div>`;
-  container.appendChild(card);
-});
-
-// Pesquisa de jogadores
-function searchPlayer(){
-  const query=document.getElementById('search-player').value.toLowerCase();
+// Montar biblioteca
+const container = document.getElementById('cards-container');
+function displayPlayers(list){
   container.innerHTML='';
-  players.filter(p=>p.name.toLowerCase().includes(query)).forEach(p=>{
+  list.forEach(p=>{
     const card=document.createElement('div');
     card.className='card';
-    card.innerHTML=`<img src="${p.img}" alt="${p.name}"><div class="card-info"><strong>${p.name}</strong><br>
-    <button onclick='openPlayer(${JSON.stringify(p)})'>Ver Sensi</button></div>`;
+    card.innerHTML=`<img src="${p.img}" alt="${p.name}"><div class="card-info">
+      <strong>${p.name}</strong><br>
+      <button onclick="alert('${p.name} sensi ainda será adicionada!')">Ver Sensi</button>
+    </div>`;
     container.appendChild(card);
   });
 }
+displayPlayers(players);
 
-// Abrir jogador
-function openPlayer(p){
-  alert(`${p.name}\nGeral:${p.geral}\nRed Dot:${p.reddot}\n2x:${p.x2}\n4x:${p.x4}\nAWM:${p.awm}`);
+// Pesquisa
+function searchPlayer(){
+  const q=document.getElementById('search-player').value.toLowerCase();
+  const filtered=players.filter(p=>p.name.toLowerCase().includes(q));
+  displayPlayers(filtered);
 }
 
-// Criador tipo bot
+// Bot interativo
 function startBot(){
-  const botContainer=document.getElementById('bot-container');
-  botContainer.style.display='block';
-  botContainer.innerHTML='';
-  askDPI(botContainer);
+  document.getElementById('bot-container').style.display='block';
+  document.getElementById('bot-container').innerHTML = `
+    <p>Qual o DPI do seu celular?</p>
+    <button onclick="chooseDPI(400)">Baixa</button>
+    <button onclick="chooseDPI(520)">Alta</button>`;
 }
-
-function askDPI(container){
-  container.innerHTML=`<p>Escolha DPI do seu celular:</p>
-  <button onclick="askSensi('Alta')">Alta</button>
-  <button onclick="askSensi('Média')">Média</button>
-  <button onclick="askSensi('Baixa')">Baixa</button>`;
+function chooseDPI(dpi){
+  document.getElementById('bot-container').innerHTML = `
+    <p>Quer sensi Alta ou Baixa?</p>
+    <button onclick="gen(${dpi}, 'Alta')">Alta</button>
+    <button onclick="gen(${dpi}, 'Baixa')">Baixa</button>`;
 }
-
-function askSensi(dpiChoice){
-  const container=document.getElementById('bot-container');
-  const dpiMap={'Alta':520,'Média':400,'Baixa':320};
-  const dpi=dpiMap[dpiChoice]||400;
-  container.innerHTML=`<p>Deseja sensi Alta ou Baixa?</p>
-  <button onclick="generateBotSensi('${dpi}','Alta')">Alta</button>
-  <button onclick="generateBotSensi('${dpi}','Baixa')">Baixa</button>`;
-}
-
-function generateBotSensi(dpi,sensiType){
-  const vals={Geral: Math.floor(Math.random()*101)+100, RedDot:Math.floor(Math.random()*101)+100, X2:Math.floor(Math.random()*101)+100, X4:Math.floor(Math.random()*101)+100, AWM:Math.floor(Math.random()*101)+100};
+function gen(dpi,type){
   document.getElementById('sensi-sliders').style.display='block';
   document.getElementById('dpi-sug').innerText=dpi;
-  ['geral','reddot','x2','x4','awm'].forEach(id=>{
-    const val=vals[id==='x2'?'X2':id==='x4'?'X4':id==='awm'?'AWM':'Geral'];
-    document.getElementById(id).value=val;
-    document.getElementById(id+'-val').innerText=val;
-  });
-  alert(`Sensi gerada para bot!\nDPI:${dpi}\nGeral:${vals.Geral}\nRed Dot:${vals.RedDot}\n2x:${vals.X2}\n4x:${vals.X4}\nAWM:${vals.AWM}`);
+  function rand(){return Math.floor(Math.random()*101)+100;}
+  const vals={Geral:rand(),RedDot:rand(),X2:rand(),X4:rand(),AWM:rand()};
+  document.getElementById('geral').value=vals.Geral;
+  document.getElementById('reddot').value=vals.RedDot;
+  document.getElementById('x2').value=vals.X2;
+  document.getElementById('x4').value=vals.X4;
+  document.getElementById('awm').value=vals.AWM;
+  document.getElementById('geral-val').innerText=vals.Geral;
+  document.getElementById('reddot-val').innerText=vals.RedDot;
+  document.getElementById('x2-val').innerText=vals.X2;
+  document.getElementById('x4-val').innerText=vals.X4;
+  document.getElementById('awm-val').innerText=vals.AWM;
+  alert(`Sensi gerada!\nDPI:${dpi}\nTipo:${type}`);
 }
 
-// Atualizar slider
-function updateValue(id){
-  document.getElementById(id+'-val').innerText=document.getElementById(id).value;
-}
-
-// Copiar valores
-function copySensi(){
-  const geral=document.getElementById('geral').value;
-  const reddot=document.getElementById('reddot').value;
-  const x2=document.getElementById('x2').value;
-  const x4=document.getElementById('x4').value;
-  const awm=document.getElementById('awm').value;
-  const dpi=document.getElementById('dpi-sug').innerText;
-  const text=`Geral:${geral}, Red Dot:${reddot}, 2x:${x2}, 4x:${x4}, AWM:${awm}, DPI:${dpi}`;
-  navigator.clipboard.writeText(text);
-  alert("Valores copiados para bot!");
-}
 </script>
-
 </body>
-        </html>
+  </html>
