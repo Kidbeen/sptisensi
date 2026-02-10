@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SPT Sensi</title>
+<title>SPT Sensi - Turbo FF</title>
 
 <style>
 body{
@@ -78,6 +78,18 @@ input,select{
   border-radius:10px;
   font-size:12px;
 }
+
+#fpsCounter{
+  position:fixed;
+  bottom:10px;
+  left:10px;
+  background:rgba(0,255,156,0.8);
+  color:#000;
+  padding:5px 10px;
+  border-radius:10px;
+  font-weight:bold;
+  font-family:monospace;
+}
 </style>
 </head>
 
@@ -107,7 +119,7 @@ input,select{
 
 <section id="bot">
   <h2>Bot Criador de Sensi</h2>
-  <p>Essa sensi é gerada <b>apenas para o seu celular</b>.</p>
+  <p>Esta sensi é gerada <b>apenas para o seu celular</b> e você recebe dicas de capa:</p>
 
   <label>DPI</label>
   <select id="dpi">
@@ -116,7 +128,7 @@ input,select{
     <option>Alto (520+)</option>
   </select>
 
-  <label>Estilo</label>
+  <label>Estilo de Mira</label>
   <select id="style">
     <option>Alta</option>
     <option>Média</option>
@@ -132,19 +144,23 @@ input,select{
     <div class="slider">4x: <span id="x4"></span></div>
     <div class="slider">AWM: <span id="awm"></span></div>
     <button onclick="copy()">Copiar</button>
+    <p id="tips"></p>
   </div>
 </section>
 
 <section id="turbo">
   <h2>Turbo Free Fire</h2>
-  <p>Funções visuais de otimização:</p>
+  <p>Funções de otimização simuladas:</p>
   <ul>
-    <li>✔ Estabilizar FPS (simulado)</li>
+    <li>✔ Estabilizar FPS</li>
     <li>✔ Reduzir lag visual</li>
     <li>✔ Ajuste de sensibilidade fina</li>
   </ul>
   <button onclick="alert('Otimização visual aplicada!')">Ativar Turbo</button>
+  <button onclick="openFF()">Abrir Free Fire</button>
 </section>
+
+<div id="fpsCounter">FPS: 60</div>
 
 <script>
 function show(id){
@@ -152,54 +168,89 @@ function show(id){
   document.getElementById(id).classList.add('active');
 }
 
+// Detecta dispositivo
+document.getElementById("deviceInfo").innerText="Dispositivo: "+navigator.userAgent;
+
+// Biblioteca de 160+ jogadores (exemplo, placeholders)
 const players=[
-"Nobru","Cerol","PlayHard","Rai Star","Bak","Two9","El Gato",
-"Marechal","MK9","Sadx","Maxxo","Falpz","Ted1v4",
-"apelapato999","White444","Chronos","Dynox","Khan","K22",
-"Pahadi","ZehPlays","Froza","Cess","KingFF","ShadowFF",
-"ReiDaPata","VortexFF","HunterBR","StrikeFF","WolfBR"
+{nome:"Nobru", foto:"https://i.imgur.com/placeholder.png", geral:150, reddot:140, x2:130, x4:120, awm:110},
+{nome:"Cerol", foto:"https://i.imgur.com/placeholder.png", geral:160, reddot:150, x2:140, x4:130, awm:120},
+{nome:"PlayHard", foto:"https://i.imgur.com/placeholder.png", geral:155, reddot:145, x2:135, x4:125, awm:115},
+{nome:"Rai Star", foto:"https://i.imgur.com/placeholder.png", geral:145, reddot:135, x2:125, x4:120, awm:110},
+{nome:"apelapato999", foto:"https://i.imgur.com/placeholder.png", geral:140, reddot:130, x2:125, x4:120, awm:110},
+{nome:"Marechal", foto:"https://i.imgur.com/placeholder.png", geral:150, reddot:140, x2:135, x4:125, awm:115},
+{nome:"MK9", foto:"https://i.imgur.com/placeholder.png", geral:155, reddot:145, x2:135, x4:125, awm:115},
+{nome:"Sadx", foto:"https://i.imgur.com/placeholder.png", geral:150, reddot:140, x2:130, x4:120, awm:110},
+{nome:"Maxxo", foto:"https://i.imgur.com/placeholder.png", geral:145, reddot:135, x2:125, x4:120, awm:110},
+{nome:"Falpz", foto:"https://i.imgur.com/placeholder.png", geral:140, reddot:130, x2:125, x4:120, awm:110},
+{nome:"Ted1v4", foto:"https://i.imgur.com/placeholder.png", geral:135, reddot:125, x2:120, x4:115, awm:110},
+// ADICIONE os outros jogadores até 160+ seguindo o mesmo modelo
 ];
 
 const list=document.getElementById("list");
 function render(arr){
   list.innerHTML="";
   arr.forEach(p=>{
-    list.innerHTML+=`
-    <div class="card">
-      <img src="https://i.imgur.com/placeholder.png">
+    const card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`
+      <img src="${p.foto}">
       <div>
-        <b>${p}</b><br>
-        <small>Sensi pública</small><br>
-        <button onclick="alert('Sensi de ${p} apenas para visualização')">Ver Sensi</button>
-      </div>
-    </div>`;
+        <b>${p.nome}</b><br>
+        <button onclick='verSensi(${JSON.stringify(p)})'>Ver Sensi</button>
+      </div>`;
+    list.appendChild(card);
   });
 }
 render(players);
 
+// Pesquisa
 function search(q){
-  render(players.filter(p=>p.toLowerCase().includes(q.toLowerCase())));
+  render(players.filter(p=>p.nome.toLowerCase().includes(q.toLowerCase())));
 }
 
+// Visualizar sensi
+function verSensi(p){
+  alert(`${p.nome} - Sensibilidade\nGeral: ${p.geral}\nRed Dot: ${p.reddot}\n2x: ${p.x2}\n4x: ${p.x4}\nAWM: ${p.awm}`);
+}
+
+// Bot cria sensi do celular e dá dicas
 function generate(){
   document.getElementById("result").style.display="block";
-  function r(){return Math.floor(100+Math.random()*100);}
+  function r(){return Math.floor(50+Math.random()*150);}
   g.innerText=r();
   r.innerText=r();
   x2.innerText=r();
   x4.innerText=r();
   awm.innerText=r();
+  
+  let dicas=[
+    "2x: Mantenha mira firme e ajuste velocidade",
+    "4x: Agache para estabilidade",
+    "AWM: Mire levemente acima da cabeça",
+    "Se mira grudar no peito: ajuste DPI ou estilo",
+    "Mova-se em diagonal para evitar rastros de capa"
+  ];
+  document.getElementById("tips").innerHTML=dicas.join("<br>");
 }
 
+// Copiar sensi
 function copy(){
   const txt=`Geral:${g.innerText}, RedDot:${r.innerText}, 2x:${x2.innerText}, 4x:${x4.innerText}, AWM:${awm.innerText}`;
   navigator.clipboard.writeText(txt);
   alert("Copiado!");
 }
 
-document.getElementById("deviceInfo").innerText=
-"Dispositivo: "+navigator.userAgent;
-</script>
+// Abrir Free Fire
+function openFF(){
+  // Android: intent, iOS: esquema URI
+  window.location.href="intent://com.dts.freefireth/#Intent;package=com.dts.freefireth;end";
+}
 
+// FPS simulado
+let fps=60;
+setInterval(()=>{fps=Math.floor(55+Math.random()*10);document.getElementById("fpsCounter").innerText="FPS: "+fps;},500);
+
+</script>
 </body>
-  </html>
+                   </html>
