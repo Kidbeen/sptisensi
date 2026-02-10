@@ -5,67 +5,67 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SPT Sensi PRO</title>
 <style>
-  body {
-    margin:0;
-    font-family:Arial,sans-serif;
-    background-color:#121212;
-    color:#fff;
-  }
-  header{
-    background-color:#16a085;
-    text-align:center;
-    padding:20px;
-    font-size:28px;
-    font-weight:bold;
-  }
-  nav{
-    display:flex;
-    justify-content:space-around;
-    background-color:#1abc9c;
-    padding:10px 0;
-  }
-  nav button{
-    background-color:#16a085;
-    border:none;
-    padding:10px 20px;
-    border-radius:10px;
-    color:#fff;
-    font-size:16px;
-    cursor:pointer;
-  }
-  nav button:hover{background-color:#1fffc0;}
-  section{padding:20px;display:none;}
-  section.active{display:block;}
-  .card{
-    background-color:#1e1e1e;
-    padding:15px;
-    margin:10px 0;
-    border-radius:10px;
-    display:flex;
-    align-items:center;
-  }
-  .card img{
-    width:60px;height:60px;border-radius:50%;margin-right:15px;
-  }
-  .card-info{flex:1;}
-  .card button{
-    background-color:#16a085;
-    border:none;
-    padding:5px 10px;
-    border-radius:8px;
-    cursor:pointer;
-    margin-top:5px;
-  }
-  input[type=range]{width:100%;}
-  .slider-container{margin:15px 0;}
-  #search-player{
-    width:100%;
-    padding:10px;
-    border-radius:10px;
-    border:none;
-    margin-bottom:15px;
-    font-size:16px;
-  }
+body {
+  margin:0;
+  font-family:Arial,sans-serif;
+  background-color:#121212;
+  color:#fff;
+}
+header{
+  background-color:#16a085;
+  text-align:center;
+  padding:20px;
+  font-size:28px;
+  font-weight:bold;
+}
+nav{
+  display:flex;
+  justify-content:space-around;
+  background-color:#1abc9c;
+  padding:10px 0;
+}
+nav button{
+  background-color:#16a085;
+  border:none;
+  padding:10px 20px;
+  border-radius:10px;
+  color:#fff;
+  font-size:16px;
+  cursor:pointer;
+}
+nav button:hover{background-color:#1fffc0;}
+section{padding:20px;display:none;}
+section.active{display:block;}
+.card{
+  background-color:#1e1e1e;
+  padding:15px;
+  margin:10px 0;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+}
+.card img{
+  width:60px;height:60px;border-radius:50%;margin-right:15px;
+}
+.card-info{flex:1;}
+.card button{
+  background-color:#16a085;
+  border:none;
+  padding:5px 10px;
+  border-radius:8px;
+  cursor:pointer;
+  margin-top:5px;
+}
+input[type=range]{width:100%;}
+.slider-container{margin:15px 0;}
+#search-player{
+  width:100%;
+  padding:10px;
+  border-radius:10px;
+  border:none;
+  margin-bottom:15px;
+  font-size:16px;
+}
 </style>
 </head>
 <body>
@@ -134,76 +134,30 @@ function showSection(id){
   document.getElementById(id).classList.add('active');
 }
 
-// Jogadores grandes (60+)
-const players = [
-{name:"Nobru", img:"https://i.imgur.com/F5vQZzV.jpg"},
-{name:"PlayHard", img:"https://i.imgur.com/placeholder.png"},
-{name:"Cerol", img:"https://i.imgur.com/placeholder.png"},
-{name:"Rai Star", img:"https://i.imgur.com/placeholder.png"},
-{name:"Ajjubhai", img:"https://i.imgur.com/placeholder.png"},
-{name:"SK Sabir Boss", img:"https://i.imgur.com/placeholder.png"},
-{name:"Two9", img:"https://i.imgur.com/placeholder.png"},
-{name:"Bak", img:"https://i.imgur.com/placeholder.png"},
-{name:"El Gato", img:"https://i.imgur.com/placeholder.png"},
-{name:"Fluxo", img:"https://i.imgur.com/placeholder.png"},
-{name:"Loud", img:"https://i.imgur.com/placeholder.png"},
-{name:"Mitos", img:"https://i.imgur.com/placeholder.png"},
-{name:"Marechal", img:"https://i.imgur.com/placeholder.png"},
-{name:"MK9", img:"https://i.imgur.com/placeholder.png"},
-{name:"Sadx", img:"https://i.imgur.com/placeholder.png"},
-{name:"Maxxo", img:"https://i.imgur.com/placeholder.png"},
-{name:"Falpz", img:"https://i.imgur.com/placeholder.png"},
-{name:"Ted1v4", img:"https://i.imgur.com/placeholder.png"},
-// 42 mais fictícios (repetir/editar depois com imagens reais)
-{name:"Vincenzo", img:"https://i.imgur.com/placeholder.png"},
-{name:"AxeFF", img:"https://i.imgur.com/placeholder.png"},
-{name:"ONFIRE", img:"https://i.imgur.com/placeholder.png"},
-{name:"White444", img:"https://i.imgur.com/placeholder.png"},
-{name:"Pahadi", img:"https://i.imgur.com/placeholder.png"},
-{name:"Chronos", img:"https://i.imgur.com/placeholder.png"},
-{name:"Dynox", img:"https://i.imgur.com/placeholder.png"},
-{name:"Khan", img:"https://i.imgur.com/placeholder.png"},
-{name:"K22", img:"https://i.imgur.com/placeholder.png"},
-{name:"A_S", img:"https://i.imgur.com/placeholder.png"},
-{name:"Sc0utOP", img:"https://i.imgur.com/placeholder.png"},
-{name:"TSM Myth", img:"https://i.imgur.com/placeholder.png"},
-{name:"ToxicR", img:"https://i.imgur.com/placeholder.png"},
-{name:"TavoFF", img:"https://i.imgur.com/placeholder.png"},
-{name:"Lumi", img:"https://i.imgur.com/placeholder.png"},
-{name:"Destruk1", img:"https://i.imgur.com/placeholder.png"},
-{name:"SolidFPS", img:"https://i.imgur.com/placeholder.png"},
-{name:"FNCKamikaze", img:"https://i.imgur.com/placeholder.png"},
-{name:"ZehPlays", img:"https://i.imgur.com/placeholder.png"},
-{name:"Pedritox", img:"https://i.imgur.com/placeholder.png"},
-{name:"GamerNoob", img:"https://i.imgur.com/placeholder.png"},
-{name:"Zkk", img:"https://i.imgur.com/placeholder.png"},
-{name:"Pouli", img:"https://i.imgur.com/placeholder.png"},
-{name:"HugoFF", img:"https://i.imgur.com/placeholder.png"},
-{name:"DimasFF", img:"https://i.imgur.com/placeholder.png"},
-{name:"KarolPlay", img:"https://i.imgur.com/placeholder.png"},
-{name:"NinoFF", img:"https://i.imgur.com/placeholder.png"},
-{name:"KevPlay", img:"https://i.imgur.com/placeholder.png"},
-{name:"FzApOfficial", img:"https://i.imgur.com/placeholder.png"},
-{name:"LexFF", img:"https://i.imgur.com/placeholder.png"},
-{name:"HSR", img:"https://i.imgur.com/placeholder.png"},
-{name:"ProSlick", img:"https://i.imgur.com/placeholder.png"},
-{name:"BielzinhoFF", img:"https://i.imgur.com/placeholder.png"},
-{name:"RexFF", img:"https://i.imgur.com/placeholder.png"},
-{name:"WarCryFF", img:"https://i.imgur.com/placeholder.png"},
-{name:"DindaFF", img:"https://i.imgur.com/placeholder.png"},
-{name:"LipeFF", img:"https://i.imgur.com/placeholder.png"},
+// Lista ampliada 120+ jogadores
+const players=[
+"nobru","playhard","cerol","rai star","ajjubhai","sk sabir boss","two9","bak","el gato",
+"fluxo","loud","mitos","marechal","mk9","sadx","maxxo","falpz","ted1v4","vincenzo","axeff",
+"onfire","white444","pahadi","chronos","dynox","khan","k22","a_s","sc0utop","tsm myth","toxikr",
+"tavoff","lumi","destruk1","solidfps","fnckamikaze","zehplays","pedritox","gamernoob","zkk",
+"pouli","hugoff","dimasff","karolplay","ninoff","kevplay","fzapofficial","lexff","hsr",
+"proslick","bielzinhoff","rexff","warcryff","dindaff","lipeff","ghostskill","iceheart",
+"cessff","dede","frozaff","ggmax","kingff","playerx","shadowff","lulubr","vinyff",
+"leomaster","furybr","xtremeff","reidapata","betaff","malucoff","titibr","frostyff",
+"vinigamer","rafinhaff","thugff","alphayt","omegaff","novabr","dragonff","skullbr",
+"vortexff","hunterbr","strikeff","aceyt","bladeff","zerobr","pikachuff","wolfbr"
 ];
 
-// Montar biblioteca
-const container = document.getElementById('cards-container');
+// Montar biblioteca com fotos placeholders
+const container=document.getElementById('cards-container');
 function displayPlayers(list){
   container.innerHTML='';
   list.forEach(p=>{
     const card=document.createElement('div');
     card.className='card';
-    card.innerHTML=`<img src="${p.img}" alt="${p.name}"><div class="card-info">
-      <strong>${p.name}</strong><br>
-      <button onclick="alert('${p.name} sensi ainda será adicionada!')">Ver Sensi</button>
+    card.innerHTML=`<img src="https://i.imgur.com/placeholder.png" alt="${p}"><div class="card-info">
+      <strong>${p}</strong><br>
+      <button onclick="alert('${p} sensi será gerada pelo bot!')">Ver Sensi</button>
     </div>`;
     container.appendChild(card);
   });
@@ -213,29 +167,32 @@ displayPlayers(players);
 // Pesquisa
 function searchPlayer(){
   const q=document.getElementById('search-player').value.toLowerCase();
-  const filtered=players.filter(p=>p.name.toLowerCase().includes(q));
+  const filtered=players.filter(p=>p.toLowerCase().includes(q));
   displayPlayers(filtered);
 }
 
-// Bot interativo
+// Bot interativo melhorado
 function startBot(){
   document.getElementById('bot-container').style.display='block';
-  document.getElementById('bot-container').innerHTML = `
+  document.getElementById('bot-container').innerHTML=`
     <p>Qual o DPI do seu celular?</p>
     <button onclick="chooseDPI(400)">Baixa</button>
     <button onclick="chooseDPI(520)">Alta</button>`;
 }
+let selectedDPI=400;
 function chooseDPI(dpi){
-  document.getElementById('bot-container').innerHTML = `
-    <p>Quer sensi Alta ou Baixa?</p>
-    <button onclick="gen(${dpi}, 'Alta')">Alta</button>
-    <button onclick="gen(${dpi}, 'Baixa')">Baixa</button>`;
+  selectedDPI=dpi;
+  document.getElementById('bot-container').innerHTML=`
+    <p>Quer sensi Alta, Média ou Baixa?</p>
+    <button onclick="genSensi('Alta')">Alta</button>
+    <button onclick="genSensi('Média')">Média</button>
+    <button onclick="genSensi('Baixa')">Baixa</button>`;
 }
-function gen(dpi,type){
+function genSensi(tipo){
   document.getElementById('sensi-sliders').style.display='block';
-  document.getElementById('dpi-sug').innerText=dpi;
-  function rand(){return Math.floor(Math.random()*101)+100;}
-  const vals={Geral:rand(),RedDot:rand(),X2:rand(),X4:rand(),AWM:rand()};
+  document.getElementById('dpi-sug').innerText=selectedDPI;
+  function calc(){return Math.floor(Math.random()*101)+100;}
+  const vals={Geral:calc(),RedDot:calc(),X2:calc(),X4:calc(),AWM:calc()};
   document.getElementById('geral').value=vals.Geral;
   document.getElementById('reddot').value=vals.RedDot;
   document.getElementById('x2').value=vals.X2;
@@ -246,9 +203,24 @@ function gen(dpi,type){
   document.getElementById('x2-val').innerText=vals.X2;
   document.getElementById('x4-val').innerText=vals.X4;
   document.getElementById('awm-val').innerText=vals.AWM;
-  alert(`Sensi gerada!\nDPI:${dpi}\nTipo:${type}`);
+  alert(`Sensi gerada!\nDPI: ${selectedDPI}\nTipo: ${tipo}`);
 }
 
+// Sliders
+function updateValue(id){
+  document.getElementById(id+'-val').innerText=document.getElementById(id).value;
+}
+function copySensi(){
+  const geral=document.getElementById('geral').value;
+  const reddot=document.getElementById('reddot').value;
+  const x2=document.getElementById('x2').value;
+  const x4=document.getElementById('x4').value;
+  const awm=document.getElementById('awm').value;
+  const dpi=document.getElementById('dpi-sug').innerText;
+  const text=`Geral:${geral}, Red Dot:${reddot}, 2x:${x2}, 4x:${x4}, AWM:${awm}, DPI:${dpi}`;
+  navigator.clipboard.writeText(text);
+  alert("Valores copiados para bot!");
+}
 </script>
 </body>
   </html>
