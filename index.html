@@ -113,8 +113,7 @@ input,select{
 
 <section id="bib">
   <h2>Biblioteca de Sensis (Visualização)</h2>
-  <input placeholder="Pesquisar jogador..." oninput="search(this.value)">
-  <div id="list"></div>
+  <div id="list" style="max-height:70vh; overflow-y:auto;"></div>
 </section>
 
 <section id="bot">
@@ -171,7 +170,7 @@ function show(id){
 // Detecta dispositivo
 document.getElementById("deviceInfo").innerText="Dispositivo: "+navigator.userAgent;
 
-// Biblioteca de 160+ jogadores (exemplo, placeholders)
+// Biblioteca de 500 jogadores (exemplo inicial, misturados)
 const players=[
 {nome:"Nobru", foto:"https://i.imgur.com/placeholder.png", geral:150, reddot:140, x2:130, x4:120, awm:110},
 {nome:"Cerol", foto:"https://i.imgur.com/placeholder.png", geral:160, reddot:150, x2:140, x4:130, awm:120},
@@ -184,9 +183,10 @@ const players=[
 {nome:"Maxxo", foto:"https://i.imgur.com/placeholder.png", geral:145, reddot:135, x2:125, x4:120, awm:110},
 {nome:"Falpz", foto:"https://i.imgur.com/placeholder.png", geral:140, reddot:130, x2:125, x4:120, awm:110},
 {nome:"Ted1v4", foto:"https://i.imgur.com/placeholder.png", geral:135, reddot:125, x2:120, x4:115, awm:110},
-// ADICIONE os outros jogadores até 160+ seguindo o mesmo modelo
+// ADICIONE os outros jogadores até 500 seguindo o mesmo modelo
 ];
 
+// Renderiza lista completa
 const list=document.getElementById("list");
 function render(arr){
   list.innerHTML="";
@@ -197,22 +197,12 @@ function render(arr){
       <img src="${p.foto}">
       <div>
         <b>${p.nome}</b><br>
-        <button onclick='verSensi(${JSON.stringify(p)})'>Ver Sensi</button>
+        Geral:${p.geral} Red Dot:${p.reddot} 2x:${p.x2} 4x:${p.x4} AWM:${p.awm}
       </div>`;
     list.appendChild(card);
   });
 }
 render(players);
-
-// Pesquisa
-function search(q){
-  render(players.filter(p=>p.nome.toLowerCase().includes(q.toLowerCase())));
-}
-
-// Visualizar sensi
-function verSensi(p){
-  alert(`${p.nome} - Sensibilidade\nGeral: ${p.geral}\nRed Dot: ${p.reddot}\n2x: ${p.x2}\n4x: ${p.x4}\nAWM: ${p.awm}`);
-}
 
 // Bot cria sensi do celular e dá dicas
 function generate(){
@@ -243,14 +233,13 @@ function copy(){
 
 // Abrir Free Fire
 function openFF(){
-  // Android: intent, iOS: esquema URI
   window.location.href="intent://com.dts.freefireth/#Intent;package=com.dts.freefireth;end";
 }
 
 // FPS simulado
 let fps=60;
 setInterval(()=>{fps=Math.floor(55+Math.random()*10);document.getElementById("fpsCounter").innerText="FPS: "+fps;},500);
-
 </script>
+
 </body>
-                   </html>
+    </html>
