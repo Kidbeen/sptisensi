@@ -10,35 +10,45 @@ body{
   margin:0;
   font-family:Arial;
   background:#0b1220;
-  color:#fff;
+  color:white;
 }
+
 header{
   text-align:center;
   padding:15px;
-  background:#101a2e;
-  font-weight:bold;
   font-size:20px;
+  font-weight:bold;
+  background:linear-gradient(90deg,#0f172a,#1e293b);
 }
+
 .topbar{
   display:flex;
   justify-content:space-around;
   padding:10px;
-  background:#0f172a;
+  background:#111827;
 }
+
 .topbar button{
-  width:auto;
   padding:8px 12px;
-  border-radius:8px;
+  border-radius:10px;
+  border:none;
+  background:#2563eb;
+  color:white;
+  font-weight:bold;
 }
+
 .container{
   padding:15px;
 }
+
 .card{
   background:#111c33;
   padding:15px;
   border-radius:15px;
   margin-bottom:15px;
+  box-shadow:0 0 15px rgba(0,0,0,0.4);
 }
+
 button{
   width:100%;
   padding:12px;
@@ -47,25 +57,31 @@ button{
   font-weight:bold;
   background:linear-gradient(90deg,#3b82f6,#2563eb);
   color:white;
-  cursor:pointer;
+  margin-top:8px;
 }
+
 select{
   width:100%;
-  padding:8px;
-  border-radius:8px;
+  padding:10px;
+  border-radius:10px;
   border:none;
   margin-top:5px;
 }
+
 .hidden{display:none;}
+
 .result{
   background:#0f172a;
   padding:10px;
   border-radius:10px;
   margin-top:10px;
 }
+
 iframe{
+  width:100%;
+  height:220px;
+  border-radius:12px;
   margin-top:10px;
-  border-radius:10px;
 }
 </style>
 </head>
@@ -113,7 +129,7 @@ iframe{
 <div class="result hidden" id="styleResult"></div>
 </div>
 
-<!-- TUTORIAL -->
+<!-- TUTORIAL CORRETO -->
 <div class="card hidden" id="tutorialArea">
 <h3>Métodos de Capa</h3>
 
@@ -149,7 +165,7 @@ if(problema==="peito") base += 20;
 if(problema==="naosobe") base += 25;
 if(problema==="tremendo") base -= 10;
 
-let botao = Math.floor(Math.random() * 20) + 35; // nunca abaixo de 35%
+let botao = Math.floor(Math.random()*20)+35;
 
 let resultado = `
 Geral: ${base}
@@ -158,9 +174,6 @@ Red Dot: ${base+5}
 4x: ${base-10}
 AWM: ${base-20}
 Botão: ${botao}%
-
-Método recomendado:
-Treinar 15 min modo treino antes da rank.
 `;
 
 document.getElementById("resultBox").classList.remove("hidden");
@@ -173,63 +186,16 @@ let box = document.getElementById("styleResult");
 box.classList.remove("hidden");
 
 if(style==="freestyle"){
-box.innerHTML=`
-🔥 FREESTYLE (movimento insano)
-
-Sensi 1:
-Geral 150 | Red 155 | Botão 45%
-
-Sensi 2:
-Geral 145 | Red 150 | Botão 48%
-
-Sensi 3:
-Geral 160 | Red 165 | Botão 42%
-`;
+box.innerHTML="🔥 150 / 155 Botão 45%<br>145 / 150 Botão 48%<br>160 / 165 Botão 42%";
 }
-
 if(style==="insta"){
-box.innerHTML=`
-⚡ INSTA PLAYER (capa rápido)
-
-Sensi 1:
-Geral 135 | Red 140 | Botão 50%
-
-Sensi 2:
-Geral 140 | Red 145 | Botão 52%
-
-Sensi 3:
-Geral 138 | Red 142 | Botão 49%
-`;
+box.innerHTML="⚡ 135 / 140 Botão 50%<br>138 / 142 Botão 49%<br>140 / 145 Botão 52%";
 }
-
 if(style==="insane"){
-box.innerHTML=`
-💀 INSANE DRIVE (agressivo extremo)
-
-Sensi 1:
-Geral 165 | Red 170 | Botão 40%
-
-Sensi 2:
-Geral 170 | Red 175 | Botão 38%
-
-Sensi 3:
-Geral 160 | Red 168 | Botão 42%
-`;
+box.innerHTML="💀 165 / 170 Botão 40%<br>170 / 175 Botão 38%<br>160 / 168 Botão 42%";
 }
-
 if(style==="pulante"){
-box.innerHTML=`
-🐇 PULANTE PLAY (jump shot)
-
-Sensi 1:
-Geral 148 | Red 152 | Botão 47%
-
-Sensi 2:
-Geral 150 | Red 155 | Botão 45%
-
-Sensi 3:
-Geral 142 | Red 148 | Botão 50%
-`;
+box.innerHTML="🐇 148 / 152 Botão 47%<br>150 / 155 Botão 45%<br>142 / 148 Botão 50%";
 }
 
 }
@@ -242,33 +208,30 @@ content.classList.remove("hidden");
 if(type==="2x"){
 content.innerHTML=`
 <h4>Método 2x</h4>
-Encoste a mira no peito → puxe curto → pausa mínima → micro ajuste.
+Encoste no peito → puxada curta → pausa → micro ajuste final.
 
-<iframe width="100%" height="200"
-src="https://www.youtube.com/embed/9bZkp7q19f0"
-frameborder="0" allowfullscreen></iframe>
+<iframe src="https://www.youtube.com/embed/aqz-KE-bpKQ"
+allowfullscreen></iframe>
 `;
 }
 
 if(type==="micro"){
 content.innerHTML=`
 <h4>Micro Puxada</h4>
-Pequeno toque rápido para cima sem arrastar muito.
+Pequeno toque rápido para cima sem arrastar demais.
 
-<iframe width="100%" height="200"
-src="https://www.youtube.com/embed/l482T0yNkeo"
-frameborder="0" allowfullscreen></iframe>
+<iframe src="https://www.youtube.com/embed/kXYiU_JCYtU"
+allowfullscreen></iframe>
 `;
 }
 
 if(type==="explosivo"){
 content.innerHTML=`
 <h4>Arrasto Explosivo</h4>
-Arrasto curto + rápido + controle no final.
+Arrasto rápido e controlado para subir direto na cabeça.
 
-<iframe width="100%" height="200"
-src="https://www.youtube.com/embed/3tmd-ClpJxA"
-frameborder="0" allowfullscreen></iframe>
+<iframe src="https://www.youtube.com/embed/OPf0YbXqDm0"
+allowfullscreen></iframe>
 `;
 }
 
@@ -277,4 +240,4 @@ frameborder="0" allowfullscreen></iframe>
 </script>
 
 </body>
-</html>
+  </html>
