@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SPT SENSI PRO X</title>
+<title>SPT SENSI ELITE</title>
 
 <style>
 body{
@@ -12,39 +12,33 @@ body{
   background:#0b1220;
   color:#fff;
 }
-
 header{
-  padding:15px;
   text-align:center;
-  font-weight:bold;
+  padding:15px;
   background:#101a2e;
+  font-weight:bold;
   font-size:20px;
 }
-
 .topbar{
   display:flex;
-  justify-content:space-between;
+  justify-content:space-around;
   padding:10px;
   background:#0f172a;
 }
-
 .topbar button{
   width:auto;
   padding:8px 12px;
   border-radius:8px;
 }
-
 .container{
   padding:15px;
 }
-
 .card{
   background:#111c33;
   padding:15px;
   border-radius:15px;
   margin-bottom:15px;
 }
-
 button{
   width:100%;
   padding:12px;
@@ -55,166 +49,107 @@ button{
   color:white;
   cursor:pointer;
 }
-
-.hidden{ display:none; }
-
+select{
+  width:100%;
+  padding:8px;
+  border-radius:8px;
+  border:none;
+  margin-top:5px;
+}
+.hidden{display:none;}
 .result{
   background:#0f172a;
   padding:10px;
   border-radius:10px;
   margin-top:10px;
 }
-
-select,input{
-  width:100%;
-  padding:8px;
-  margin-top:5px;
-  border-radius:8px;
-  border:none;
+iframe{
+  margin-top:10px;
+  border-radius:10px;
 }
 </style>
 </head>
 
 <body>
 
-<header>⚡ SPT SENSI PRO X ⚡</header>
+<header>🔥 SPT SENSI ELITE 🔥</header>
 
 <div class="topbar">
-<button onclick="toggleGames()">＋ Jogos</button>
 <button onclick="toggleLibrary()">📚 Biblioteca</button>
 <button onclick="toggleTutorial()">🎥 Tutorial</button>
 </div>
 
 <div class="container">
 
+<!-- GERADOR -->
 <div class="card">
-<button onclick="optimize()">🔥 OTIMIZAR FREE FIRE</button>
-</div>
-
-<!-- AREA DE JOGOS -->
-<div class="card hidden" id="gamesArea">
-<h3>Seus Jogos</h3>
-<button onclick="openGame('https://play.google.com/store/apps/details?id=com.dts.freefireth')">Free Fire</button>
-<button onclick="openGame('https://play.google.com/store/apps/details?id=com.activision.callofduty.shooter')">COD Mobile</button>
-</div>
-
-<!-- BIBLIOTECA -->
-<div class="card hidden" id="libraryArea">
-<h3>Biblioteca de Sensis (Estilos Populares)</h3>
-
-<select onchange="loadSensi(this.value)">
-<option value="">Escolher estilo</option>
-<option value="agressivo">Estilo Agressivo Rank</option>
-<option value="controlado">Estilo Controlado Competitivo</option>
-<option value="rush">Estilo Rushador</option>
-</select>
-
-<div class="result hidden" id="libraryResult"></div>
-</div>
-
-<!-- BOT INTELIGENTE -->
-<div class="card">
-<h3>🤖 BOT ULTRA INTELIGENTE</h3>
+<h3>🤖 Gerador Inteligente</h3>
 
 <select id="problem">
-<option value="normal">Minha mira é normal</option>
+<option value="normal">Mira normal</option>
 <option value="passa">Passa da cabeça</option>
 <option value="peito">Gruda no peito</option>
-<option value="naosobe">Não sobe direito</option>
-<option value="tremendo">Mira tremendo muito</option>
+<option value="naosobe">Não sobe</option>
+<option value="tremendo">Tremendo muito</option>
 </select>
 
-<select id="arma">
-<option value="geral">Geral/SMG</option>
-<option value="12x">12x</option>
-<option value="awm">AWM</option>
-</select>
-
-<button onclick="generate()">GERAR SENSI PRO</button>
+<button onclick="generate()">GERAR SENSI</button>
 
 <div class="result hidden" id="resultBox"></div>
 </div>
 
+<!-- BIBLIOTECA -->
+<div class="card hidden" id="libraryArea">
+<h3>Estilos de Jogo</h3>
+
+<select onchange="loadStyle(this.value)">
+<option value="">Escolher estilo</option>
+<option value="freestyle">Freestyle</option>
+<option value="insta">Insta Player</option>
+<option value="insane">Insane Drive</option>
+<option value="pulante">Pulante Play</option>
+</select>
+
+<div class="result hidden" id="styleResult"></div>
+</div>
+
 <!-- TUTORIAL -->
 <div class="card hidden" id="tutorialArea">
-<h3>📘 Tutoriais</h3>
+<h3>Métodos de Capa</h3>
 
-<h4>✔ Como achar seu HUD perfeito</h4>
-<p>Deixe botão entre 55%–65%. Ajuste altura até subir reto sem arrastar demais.</p>
+<select onchange="loadTutorial(this.value)">
+<option value="">Escolher método</option>
+<option value="2x">Método 2x</option>
+<option value="micro">Micro Puxada</option>
+<option value="explosivo">Arrasto Explosivo</option>
+</select>
 
-<h4>✔ Método Macetinho</h4>
-<p>Encoste mira no peito e faça micro puxada rápida para cabeça.</p>
-
-<h4>✔ Melhorar noção de jogo</h4>
-<p>Use fone, observe minimapa, conte passos inimigos.</p>
-
-<h4>✔ Método capa 2x</h4>
-<p>Puxada curta + pausa mínima + segundo micro ajuste.</p>
-
-<h4>✔ Tipos de puxada</h4>
-<p>Micro puxada / Arrasto curto / Explosiva / Arrasto progressivo.</p>
-
-<h4>🎥 Vídeo exemplo</h4>
-<iframe width="100%" height="200"
-src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-frameborder="0" allowfullscreen>
-</iframe>
-
+<div id="tutorialContent" class="result hidden"></div>
 </div>
 
 </div>
 
 <script>
 
-function toggleGames(){
-  document.getElementById("gamesArea").classList.toggle("hidden");
-}
-
 function toggleLibrary(){
-  document.getElementById("libraryArea").classList.toggle("hidden");
+document.getElementById("libraryArea").classList.toggle("hidden");
 }
 
 function toggleTutorial(){
-  document.getElementById("tutorialArea").classList.toggle("hidden");
-}
-
-function openGame(url){
-  window.open(url, "_blank");
-}
-
-function optimize(){
-  alert("Otimização aplicada com perfil equilibrado.");
-}
-
-function loadSensi(type){
-  let box = document.getElementById("libraryResult");
-  box.classList.remove("hidden");
-
-  if(type==="agressivo"){
-    box.innerHTML="Geral: 145<br>Red Dot: 150<br>Botão: 58%<br>Método: Arrasto explosivo";
-  }
-  if(type==="controlado"){
-    box.innerHTML="Geral: 120<br>Red Dot: 125<br>Botão: 62%<br>Método: Micro puxada";
-  }
-  if(type==="rush"){
-    box.innerHTML="Geral: 155<br>Red Dot: 160<br>Botão: 55%<br>Método: Puxada rápida contínua";
-  }
+document.getElementById("tutorialArea").classList.toggle("hidden");
 }
 
 function generate(){
 
 let problema = document.getElementById("problem").value;
-let arma = document.getElementById("arma").value;
-
 let base = 130;
 
 if(problema==="passa") base -= 15;
 if(problema==="peito") base += 20;
-if(problema==="naosobe") base += 30;
+if(problema==="naosobe") base += 25;
 if(problema==="tremendo") base -= 10;
 
-if(arma==="12x") base -= 20;
-if(arma==="awm") base -= 25;
+let botao = Math.floor(Math.random() * 20) + 35; // nunca abaixo de 35%
 
 let resultado = `
 Geral: ${base}
@@ -222,18 +157,124 @@ Red Dot: ${base+5}
 2x: ${base-5}
 4x: ${base-10}
 AWM: ${base-20}
-Botão Ideal: ${55 + Math.floor(Math.random()*10)}%
+Botão: ${botao}%
 
 Método recomendado:
-Treine 10 minutos no modo treino antes de rank.
+Treinar 15 min modo treino antes da rank.
 `;
 
 document.getElementById("resultBox").classList.remove("hidden");
 document.getElementById("resultBox").innerHTML = resultado;
+}
+
+function loadStyle(style){
+
+let box = document.getElementById("styleResult");
+box.classList.remove("hidden");
+
+if(style==="freestyle"){
+box.innerHTML=`
+🔥 FREESTYLE (movimento insano)
+
+Sensi 1:
+Geral 150 | Red 155 | Botão 45%
+
+Sensi 2:
+Geral 145 | Red 150 | Botão 48%
+
+Sensi 3:
+Geral 160 | Red 165 | Botão 42%
+`;
+}
+
+if(style==="insta"){
+box.innerHTML=`
+⚡ INSTA PLAYER (capa rápido)
+
+Sensi 1:
+Geral 135 | Red 140 | Botão 50%
+
+Sensi 2:
+Geral 140 | Red 145 | Botão 52%
+
+Sensi 3:
+Geral 138 | Red 142 | Botão 49%
+`;
+}
+
+if(style==="insane"){
+box.innerHTML=`
+💀 INSANE DRIVE (agressivo extremo)
+
+Sensi 1:
+Geral 165 | Red 170 | Botão 40%
+
+Sensi 2:
+Geral 170 | Red 175 | Botão 38%
+
+Sensi 3:
+Geral 160 | Red 168 | Botão 42%
+`;
+}
+
+if(style==="pulante"){
+box.innerHTML=`
+🐇 PULANTE PLAY (jump shot)
+
+Sensi 1:
+Geral 148 | Red 152 | Botão 47%
+
+Sensi 2:
+Geral 150 | Red 155 | Botão 45%
+
+Sensi 3:
+Geral 142 | Red 148 | Botão 50%
+`;
+}
+
+}
+
+function loadTutorial(type){
+
+let content = document.getElementById("tutorialContent");
+content.classList.remove("hidden");
+
+if(type==="2x"){
+content.innerHTML=`
+<h4>Método 2x</h4>
+Encoste a mira no peito → puxe curto → pausa mínima → micro ajuste.
+
+<iframe width="100%" height="200"
+src="https://www.youtube.com/embed/9bZkp7q19f0"
+frameborder="0" allowfullscreen></iframe>
+`;
+}
+
+if(type==="micro"){
+content.innerHTML=`
+<h4>Micro Puxada</h4>
+Pequeno toque rápido para cima sem arrastar muito.
+
+<iframe width="100%" height="200"
+src="https://www.youtube.com/embed/l482T0yNkeo"
+frameborder="0" allowfullscreen></iframe>
+`;
+}
+
+if(type==="explosivo"){
+content.innerHTML=`
+<h4>Arrasto Explosivo</h4>
+Arrasto curto + rápido + controle no final.
+
+<iframe width="100%" height="200"
+src="https://www.youtube.com/embed/3tmd-ClpJxA"
+frameborder="0" allowfullscreen></iframe>
+`;
+}
 
 }
 
 </script>
 
 </body>
-  </html>
+</html>
