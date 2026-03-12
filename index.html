@@ -1,243 +1,174 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SPT SENSI ELITE</title>
-
+<title>Beruz Sensi IA 3.0</title>
+<link rel="manifest" href="manifest.json">
 <style>
 body{
-  margin:0;
-  font-family:Arial;
-  background:#0b1220;
-  color:white;
+    background:#0f172a;
+    color:white;
+    font-family:Arial, sans-serif;
+    text-align:center;
+    margin:0;
+    padding:0;
 }
-
-header{
-  text-align:center;
-  padding:15px;
-  font-size:20px;
-  font-weight:bold;
-  background:linear-gradient(90deg,#0f172a,#1e293b);
+h1{
+    color:#22c55e;
+    margin-top:20px;
 }
-
-.topbar{
-  display:flex;
-  justify-content:space-around;
-  padding:10px;
-  background:#111827;
-}
-
-.topbar button{
-  padding:8px 12px;
-  border-radius:10px;
-  border:none;
-  background:#2563eb;
-  color:white;
-  font-weight:bold;
-}
-
-.container{
-  padding:15px;
-}
-
-.card{
-  background:#111c33;
-  padding:15px;
-  border-radius:15px;
-  margin-bottom:15px;
-  box-shadow:0 0 15px rgba(0,0,0,0.4);
-}
-
 button{
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:10px;
-  font-weight:bold;
-  background:linear-gradient(90deg,#3b82f6,#2563eb);
-  color:white;
-  margin-top:8px;
+    padding:12px 20px;
+    margin:8px;
+    border-radius:12px;
+    border:none;
+    background:#22c55e;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
 }
-
+.card{
+    background:#1e293b;
+    padding:15px;
+    margin:15px;
+    border-radius:15px;
+}
 select{
-  width:100%;
-  padding:10px;
-  border-radius:10px;
-  border:none;
-  margin-top:5px;
+    padding:8px;
+    border-radius:8px;
+    border:none;
+    margin:5px;
 }
-
-.hidden{display:none;}
-
-.result{
-  background:#0f172a;
-  padding:10px;
-  border-radius:10px;
-  margin-top:10px;
-}
-
-iframe{
-  width:100%;
-  height:220px;
-  border-radius:12px;
-  margin-top:10px;
+#resultado{
+    margin-top:15px;
+    font-weight:bold;
 }
 </style>
 </head>
-
 <body>
 
-<header>🔥 SPT SENSI ELITE 🔥</header>
+<h1>🔥 BERUZ SENSI IA 3.0 🔥</h1>
 
-<div class="topbar">
-<button onclick="toggleLibrary()">📚 Biblioteca</button>
-<button onclick="toggleTutorial()">🎥 Tutorial</button>
-</div>
+<!-- BOT SENSI -->
+<div class="card" id="sensiCard">
+<h2>🤖 GERADOR DE SENSI</h2>
 
-<div class="container">
-
-<!-- GERADOR -->
-<div class="card">
-<h3>🤖 Gerador Inteligente</h3>
-
-<select id="problem">
-<option value="normal">Mira normal</option>
-<option value="passa">Passa da cabeça</option>
-<option value="peito">Gruda no peito</option>
-<option value="naosobe">Não sobe</option>
-<option value="tremendo">Tremendo muito</option>
+<select id="marca">
+<option>Xiaomi</option>
+<option>Samsung</option>
+<option>iPhone</option>
+<option>Realme</option>
+<option>Infinix</option>
+<option>Tecno</option>
+<option>Huawei</option>
+<option>OPPO</option>
+<option>Vivo</option>
+<option>Motorola</option>
 </select>
 
-<button onclick="generate()">GERAR SENSI</button>
+<select id="tipo">
+<option>Baixa</option>
+<option>Média</option>
+<option>Alta</option>
+</select>
 
-<div class="result hidden" id="resultBox"></div>
+<select id="estilo">
+<option>Leve</option>
+<option>Estabilizada</option>
+</select>
+
+<select id="dpi">
+<option>Sem DPI</option>
+<option>Com DPI</option>
+</select>
+
+<br>
+<button onclick="gerar()">GERAR SENSI</button>
+
+<p id="resultado"></p>
+<button onclick="like()">👍 SENSI BOA</button>
 </div>
 
 <!-- BIBLIOTECA -->
-<div class="card hidden" id="libraryArea">
-<h3>Estilos de Jogo</h3>
-
-<select onchange="loadStyle(this.value)">
-<option value="">Escolher estilo</option>
-<option value="freestyle">Freestyle</option>
-<option value="insta">Insta Player</option>
-<option value="insane">Insane Drive</option>
-<option value="pulante">Pulante Play</option>
-</select>
-
-<div class="result hidden" id="styleResult"></div>
+<div class="card">
+<h2>📚 BIBLIOTECA DE SENSI</h2>
+<button onclick="alert('Sensi Freestyle')">Freestyle</button>
+<button onclick="alert('Sensi Insta Player')">Insta Player</button>
+<button onclick="alert('Sensi Rush')">Rush Player</button>
+<button onclick="alert('Sensi Insane Drive')">Insane Drive</button>
+<button onclick="alert('Sensi Pulante Play')">Pulante Play</button>
 </div>
 
-<!-- TUTORIAL CORRETO -->
-<div class="card hidden" id="tutorialArea">
-<h3>Métodos de Capa</h3>
-
-<select onchange="loadTutorial(this.value)">
-<option value="">Escolher método</option>
-<option value="2x">Método 2x</option>
-<option value="micro">Micro Puxada</option>
-<option value="explosivo">Arrasto Explosivo</option>
-</select>
-
-<div id="tutorialContent" class="result hidden"></div>
+<!-- TUTORIAIS -->
+<div class="card">
+<h2>🎯 TUTORIAIS</h2>
+<button onclick="window.open('https://youtube.com')">Método 2x</button>
+<button onclick="window.open('https://youtube.com')">Drag Shot</button>
+<button onclick="window.open('https://youtube.com')">Micro Puxada</button>
+<button onclick="window.open('https://youtube.com')">Puxada Longa</button>
 </div>
 
+<!-- OTIMIZAR JOGO -->
+<div class="card">
+<h2>⚡ OTIMIZAR JOGO</h2>
+<button onclick="alert('RAM Limpa')">Limpar RAM</button>
+<button onclick="alert('Modo Desempenho Ativado')">Modo Desempenho</button>
+<button onclick="alert('Modo FPS Ativado')">Modo FPS</button>
+<button onclick="alert('Free Fire Aberto')">Abrir Free Fire</button>
+</div>
+
+<!-- BOT WHATSAPP -->
+<div class="card">
+<h2>💬 BOT WHATSAPP</h2>
+<a href="https://wa.me/258XXXXXXXXX">
+<button>FALAR COM BOT</button>
+</a>
+</div>
+
+<!-- PREMIUM -->
+<div class="card">
+<h2>⭐ PREMIUM</h2>
+<button onclick="alert('Funções VIP desbloqueadas!')">ATIVAR PREMIUM</button>
 </div>
 
 <script>
+// Gerador de Sensi
+function gerar(){
+    let geral=Math.floor(Math.random()*200);
+    let red=Math.floor(Math.random()*200);
+    let x2=Math.floor(Math.random()*200);
+    let x4=Math.floor(Math.random()*200);
+    let awm=Math.floor(Math.random()*200);
 
-function toggleLibrary(){
-document.getElementById("libraryArea").classList.toggle("hidden");
+    // Salvar sensi no localStorage
+    let tipo=document.getElementById("tipo").value;
+    let sensi={
+        geral:geral,
+        red:red,
+        x2:x2,
+        x4:x4,
+        awm:awm
+    };
+    localStorage.setItem("sensi_"+tipo, JSON.stringify(sensi));
+
+    document.getElementById("resultado").innerHTML=
+    `GERAL: ${geral}<br>
+    RED DOT: ${red}<br>
+    2X: ${x2}<br>
+    4X: ${x4}<br>
+    AWM: ${awm}`;
 }
 
-function toggleTutorial(){
-document.getElementById("tutorialArea").classList.toggle("hidden");
+// Botão Like
+function like(){
+    let likes=localStorage.getItem("likes");
+    if(!likes) likes=0;
+    likes++;
+    localStorage.setItem("likes",likes);
+    alert("Obrigado pelo like 👍 Total: "+likes);
 }
-
-function generate(){
-
-let problema = document.getElementById("problem").value;
-let base = 130;
-
-if(problema==="passa") base -= 15;
-if(problema==="peito") base += 20;
-if(problema==="naosobe") base += 25;
-if(problema==="tremendo") base -= 10;
-
-let botao = Math.floor(Math.random()*20)+35;
-
-let resultado = `
-Geral: ${base}
-Red Dot: ${base+5}
-2x: ${base-5}
-4x: ${base-10}
-AWM: ${base-20}
-Botão: ${botao}%
-`;
-
-document.getElementById("resultBox").classList.remove("hidden");
-document.getElementById("resultBox").innerHTML = resultado;
-}
-
-function loadStyle(style){
-
-let box = document.getElementById("styleResult");
-box.classList.remove("hidden");
-
-if(style==="freestyle"){
-box.innerHTML="🔥 150 / 155 Botão 45%<br>145 / 150 Botão 48%<br>160 / 165 Botão 42%";
-}
-if(style==="insta"){
-box.innerHTML="⚡ 135 / 140 Botão 50%<br>138 / 142 Botão 49%<br>140 / 145 Botão 52%";
-}
-if(style==="insane"){
-box.innerHTML="💀 165 / 170 Botão 40%<br>170 / 175 Botão 38%<br>160 / 168 Botão 42%";
-}
-if(style==="pulante"){
-box.innerHTML="🐇 148 / 152 Botão 47%<br>150 / 155 Botão 45%<br>142 / 148 Botão 50%";
-}
-
-}
-
-function loadTutorial(type){
-
-let content = document.getElementById("tutorialContent");
-content.classList.remove("hidden");
-
-if(type==="2x"){
-content.innerHTML=`
-<h4>Método 2x</h4>
-Encoste no peito → puxada curta → pausa → micro ajuste final.
-
-<iframe src="https://www.youtube.com/embed/aqz-KE-bpKQ"
-allowfullscreen></iframe>
-`;
-}
-
-if(type==="micro"){
-content.innerHTML=`
-<h4>Micro Puxada</h4>
-Pequeno toque rápido para cima sem arrastar demais.
-
-<iframe src="https://www.youtube.com/embed/kXYiU_JCYtU"
-allowfullscreen></iframe>
-`;
-}
-
-if(type==="explosivo"){
-content.innerHTML=`
-<h4>Arrasto Explosivo</h4>
-Arrasto rápido e controlado para subir direto na cabeça.
-
-<iframe src="https://www.youtube.com/embed/OPf0YbXqDm0"
-allowfullscreen></iframe>
-`;
-}
-
-}
-
 </script>
 
 </body>
-  </html>
+</html>
