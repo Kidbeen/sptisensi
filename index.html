@@ -1,366 +1,80 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SensiFlow AI 3.5 - Global Edition</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #00f2ff;
-            --secondary: #7000ff;
-            --accent: #ff0055;
-            --bg: #050508;
-            --card: #11111a;
-            --text: #ffffff;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            margin: 0;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 500px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-            padding: 20px 0;
-        }
-
-        h1 {
-            font-size: 32px;
-            margin: 0;
-            background: linear-gradient(90deg, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 900;
-        }
-
-        .subtitle {
-            color: #555;
-            font-size: 12px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* Sistema de Abas */
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: 12px;
-            background: #151520;
-            border: 1px solid #333;
-            color: #777;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-            font-size: 12px;
-        }
-
-        .tab-btn.active {
-            background: var(--secondary);
-            color: white;
-            border-color: var(--primary);
-            box-shadow: 0 0 15px rgba(112, 0, 255, 0.4);
-        }
-
-        /* Conteúdo das Abas */
-        .content {
-            display: none;
-            background: var(--card);
-            padding: 25px;
-            border-radius: 20px;
-            border: 1px solid #222;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-        }
-
-        .content.active {
-            display: block;
-            animation: fadeIn 0.4s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Estilo do Gerador */
-        label {
-            display: block;
-            font-size: 11px;
-            color: var(--primary);
-            text-transform: uppercase;
-            margin-bottom: 5px;
-            margin-top: 15px;
-            font-weight: bold;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 14px;
-            background: #000;
-            border: 1px solid #333;
-            border-radius: 10px;
-            color: white;
-            box-sizing: border-box;
-            outline: none;
-        }
-
-        .btn-gen {
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(45deg, var(--secondary), var(--accent));
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-weight: 800;
-            cursor: pointer;
-            margin-top: 20px;
-            text-transform: uppercase;
-            transition: 0.3s;
-        }
-
-        .btn-gen:hover {
-            transform: scale(1.02);
-            filter: brightness(1.2);
-        }
-
-        /* Resultados */
-        .res-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .res-item {
-            background: #08080c;
-            padding: 12px;
-            border-radius: 10px;
-            text-align: center;
-            border: 1px solid #222;
-        }
-
-        .res-item small {
-            font-size: 9px;
-            color: #666;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .res-item span {
-            font-size: 18px;
-            color: var(--primary);
-            font-weight: 900;
-        }
-
-        /* Biblioteca de Famosos */
-        .lib-scroll {
-            max-height: 450px;
-            overflow-y: auto;
-            padding-right: 5px;
-        }
-
-        .lib-scroll::-webkit-scrollbar { width: 4px; }
-        .lib-scroll::-webkit-scrollbar-thumb { background: var(--secondary); border-radius: 10px; }
-
-        .player-card {
-            background: #1a1a25;
-            margin-bottom: 15px;
-            padding: 15px;
-            border-radius: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-left: 4px solid var(--accent);
-            transition: 0.3s;
-        }
-
-        .player-card:hover { background: #222233; }
-
-        .p-info b { display: block; font-size: 16px; color: #fff; }
-        .p-info span { font-size: 12px; color: #777; }
-        
-        .p-region {
-            font-size: 10px;
-            background: #333;
-            padding: 3px 8px;
-            border-radius: 5px;
-            color: var(--primary);
-            margin-bottom: 5px;
-            display: inline-block;
-            font-weight: bold;
-        }
-
-        .view-btn {
-            background: #fff;
-            color: #000;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-size: 11px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <div class="header">
-        <h1>SensiFlow AI</h1>
-        <div class="subtitle">V3.5 GLOBAL DATABASE</div>
-    </div>
-
-    <div class="tabs">
-        <button class="tab-btn active" onclick="openTab('gen')">GERADOR IA</button>
-        <button class="tab-btn" onclick="openTab('lib')">BIBLIOTECA</button>
-    </div>
-
-    <div id="gen" class="content active">
-        <label>Aparelho</label>
-        <input type="text" id="device" placeholder="Ex: iPhone 15 Pro, S24 Ultra...">
-        
-        <label>Estilo de Jogo</label>
-        <select id="aimMode">
-            <option value="1">Foco Headshot (Grudar Mira)</option>
-            <option value="2">InstaPlayer (Movimentação)</option>
-            <option value="3">Zero Recoil (Estabilizado)</option>
-        </select>
-
-        <button class="btn-gen" onclick="generate()">GERAR SENSI 2026</button>
-
-        <div id="results" style="display:none;">
-            <div class="res-grid">
-                <div class="res-item"><small>GERAL</small><span id="g">0</span></div>
-                <div class="res-item"><small>RED DOT</small><span id="r">0</span></div>
-                <div class="res-item"><small>MIRA 2X</small><span id="x2">0</span></div>
-                <div class="res-item"><small>MIRA 4X</small><span id="x4">0</span></div>
-                <div class="res-item"><small>DPI</small><span id="d">0</span></div>
-                <div class="res-item"><small>BOTÃO</small><span id="b">0</span></div>
-            </div>
-            <p style="font-size: 10px; color: var(--accent); text-align: center; margin-top: 15px;">
-                DICA: Calibração baseada no tempo de resposta do seu touch.
-            </p>
-        </div>
-    </div>
-
     <div id="lib" class="content">
         <div class="lib-scroll">
             
             <div class="player-card">
-                <div class="p-info">
-                    <div class="p-region">BRASIL 🇧🇷</div>
-                    <b>Nobru</b><span>Equilibrada / Mira Branca</span>
-                </div>
+                <div class="p-info"><div class="p-region">BRASIL 🇧🇷</div><b>Marechal</b><span>Mestre do Freestyle / Sensi 200</span></div>
+                <button class="view-btn" onclick="applySensi(200, 195, 190, 185, 960, '35%')">APLICAR</button>
+            </div>
+
+            <div class="player-card">
+                <div class="p-info"><div class="p-region">BRASIL 🇧🇷</div><b>Dantes</b><span>Movimentação e Precisão</span></div>
+                <button class="view-btn" onclick="applySensi(188, 182, 175, 170, 720, '42%')">APLICAR</button>
+            </div>
+
+            <div class="player-card">
+                <div class="p-info"><div class="p-region">BRASIL 🇧🇷</div><b>Steluto</b><span>Rei do X1 / Sensi Alta</span></div>
+                <button class="view-btn" onclick="applySensi(195, 190, 185, 180, 800, '39%')">APLICAR</button>
+            </div>
+
+            <div class="player-card">
+                <div class="p-info"><div class="p-region">BRASIL 🇧🇷</div><b>R7 FF</b><span>Clipadas Impossíveis</span></div>
+                <button class="view-btn" onclick="applySensi(198, 192, 188, 185, 850, '40%')">APLICAR</button>
+            </div>
+
+            <div class="player-card">
+                <div class="p-info"><div class="p-region">BRASIL 🇧🇷</div><b>Nobru</b><span>Equilibrada / O Pai</span></div>
                 <button class="view-btn" onclick="applySensi(182, 175, 170, 165, 520, '45%')">APLICAR</button>
             </div>
 
             <div class="player-card">
-                <div class="p-info">
-                    <div class="p-region">MARROCOS 🇲🇦</div>
-                    <b>White444</b><span>Ultra Fast / Full Desert</span>
-                </div>
-                <button class="view-btn" onclick="applySensi(200, 195, 190, 185, 960, '38%')">APLICAR</button>
+                <div class="p-info"><div class="p-region">BRASIL 🇧🇷</div><b>Thurzin</b><span>Full Speed / 4x4</span></div>
+                <button class="view-btn" onclick="applySensi(200, 198, 195, 192, 800, '38%')">APLICAR</button>
             </div>
 
             <div class="player-card">
-                <div class="p-info">
-                    <div class="p-region">TAILÂNDIA 🇹🇭</div>
-                    <b>Mincenzu</b><span>Precisão / 4x Grudada</span>
-                </div>
-                <button class="view-btn" onclick="applySensi(175, 188, 195, 198, 600, '52%')">APLICAR</button>
+                <div class="p-info"><div class="p-region">BRASIL 🇧🇷</div><b>Black444</b><span>One Tap Master (Deagle)</span></div>
+                <button class="view-btn" onclick="applySensi(195, 190, 185, 180, 900, '42%')">APLICAR</button>
             </div>
 
             <div class="player-card">
-                <div class="p-info">
-                    <div class="p-region">BRASIL 🇧🇷</div>
-                    <b>Two9</b><span>Rei da 4x / Recoil Zero</span>
-                </div>
+                <div class="p-info"><div class="p-region">BRASIL 🇧🇷</div><b>Two9</b><span>Rei da 4x / Recoil Zero</span></div>
                 <button class="view-btn" onclick="applySensi(168, 185, 192, 200, 580, '47%')">APLICAR</button>
             </div>
 
             <div class="player-card">
-                <div class="p-info">
-                    <div class="p-region">INDONÉSIA 🇮🇩</div>
-                    <b>Ruok FF</b><span>Movimentação "Hacker"</span>
-                </div>
-                <button class="view-btn" onclick="applySensi(195, 195, 195, 195, 850, '40%')">APLICAR</button>
+                <div class="p-info"><div class="p-region">MARROCOS 🇲🇦</div><b>White444</b><span>Ultra Fast / Full Vermelho</span></div>
+                <button class="view-btn" onclick="applySensi(200, 195, 190, 185, 960, '35%')">APLICAR</button>
             </div>
 
             <div class="player-card">
-                <div class="p-info">
-                    <div class="p-region">TUNÍSIA 🇹🇳</div>
-                    <b>BNL</b><span>Agressivo / X1</span>
-                </div>
-                <button class="view-btn" onclick="applySensi(190, 180, 175, 170, 720, '42%')">APLICAR</button>
+                <div class="p-info"><div class="p-region">INDONÉSIA 🇮🇩</div><b>Ruok FF</b><span>The Sniper God</span></div>
+                <button class="view-btn" onclick="applySensi(198, 198, 198, 198, 900, '40%')">APLICAR</button>
+            </div>
+
+            <div class="player-card">
+                <div class="p-info"><div class="p-region">TAILÂNDIA 🇹🇭</div><b>Mincenzu</b><span>Controle de Spray (AR)</span></div>
+                <button class="view-btn" onclick="applySensi(175, 188, 195, 198, 600, '52%')">APLICAR</button>
+            </div>
+
+            <div class="player-card">
+                <div class="p-info"><div class="p-region">TUNÍSIA 🇹🇳</div><b>B2K</b><span>Rei da AWM</span></div>
+                <button class="view-btn" onclick="applySensi(165, 170, 175, 180, 550, '50%')">APLICAR</button>
+            </div>
+
+            <div class="player-card">
+                <div class="p-info"><div class="p-region">EQUADOR 🇪🇨</div><b>Akiles</b><span>Mestre do Mobile</span></div>
+                <button class="view-btn" onclick="applySensi(180, 175, 170, 165, 480, '44%')">APLICAR</button>
+            </div>
+
+            <div class="player-card">
+                <div class="p-info"><div class="p-region">BRASIL 🇧🇷</div><b>Ghost 999</b><span>Rei do iPad / Sensi Leve</span></div>
+                <button class="view-btn" onclick="applySensi(170, 175, 180, 185, 600, '45%')")>APLICAR</button>
+            </div>
+
+            <div class="player-card">
+                <div class="p-info"><div class="p-region">BRASIL 🇧🇷</div><b>Scraly</b><span>Destaque LBFF</span></div>
+                <button class="view-btn" onclick="applySensi(178, 180, 185, 190, 560, '48%')">APLICAR</button>
             </div>
 
         </div>
     </div>
-</div>
-
-<script>
-    function openTab(tabName) {
-        document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById(tabName).classList.add('active');
-        event.currentTarget.classList.add('active');
-    }
-
-    function generate() {
-        const mode = document.getElementById('aimMode').value;
-        let base = mode == '1' ? 175 : (mode == '2' ? 190 : 140);
-        
-        // Função para variar levemente os números (IA viva)
-        const v = (n) => n + (Math.floor(Math.random() * 11) - 5);
-
-        applySensi(
-            v(base), 
-            v(base - 10), 
-            v(base - 5), 
-            v(base + 5), 
-            Math.floor(Math.random() * 400) + 400, 
-            Math.floor(Math.random() * 15) + 38 + '%'
-        );
-    }
-
-    function applySensi(geral, red, x2, x4, dpi, btn) {
-        document.getElementById('g').innerText = geral;
-        document.getElementById('r').innerText = red;
-        document.getElementById('x2').innerText = x2;
-        document.getElementById('x4').innerText = x4;
-        document.getElementById('d').innerText = dpi;
-        document.getElementById('b').innerText = btn;
-        
-        // Se veio da biblioteca, volta para a aba do gerador para mostrar o resultado
-        if(event && event.target.className === 'view-btn') {
-            document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('gen').classList.add('active');
-            document.querySelector('[onclick="openTab(\'gen\')"]').classList.add('active');
-        }
-
-        document.getElementById('results').style.display = 'block';
-    }
-</script>
-
-</body>
-</html>
