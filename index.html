@@ -1,80 +1,159 @@
-    <div id="lib" class="content">
-        <div class="lib-scroll">
-            
-            <div class="player-card">
-                <div class="p-info"><div class="p-region">BRASIL 🇧🇷</div><b>Marechal</b><span>Mestre do Freestyle / Sensi 200</span></div>
-                <button class="view-btn" onclick="applySensi(200, 195, 190, 185, 960, '35%')">APLICAR</button>
-            </div>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SensiFlow AI | Engine 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --p: #00f2ff; --s: #7000ff; --a: #ff0055; --bg: #050508; --card: #0d0d16; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); color: white; margin: 0; overflow-x: hidden; }
+        
+        .app-container { width: 100%; max-width: 480px; margin: auto; padding: 20px; box-sizing: border-box; }
+        
+        /* Header Gamer */
+        .header { text-align: center; padding: 20px 0; border-bottom: 1px solid #222; margin-bottom: 20px; }
+        h1 { font-family: 'Orbitron', sans-serif; font-size: 26px; margin: 0; letter-spacing: 3px; background: linear-gradient(90deg, #fff, var(--p)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 10px rgba(0,242,255,0.4)); }
+        
+        /* Tabs Neon */
+        .tabs { display: flex; gap: 5px; background: #111; padding: 5px; border-radius: 12px; border: 1px solid #222; margin-bottom: 25px; }
+        .tab-btn { flex: 1; padding: 12px; border: none; background: none; color: #555; font-family: 'Orbitron', sans-serif; font-size: 9px; cursor: pointer; transition: 0.4s; border-radius: 8px; }
+        .tab-btn.active { background: var(--s); color: white; box-shadow: 0 0 15px rgba(112, 0, 255, 0.5); }
 
-            <div class="player-card">
-                <div class="p-info"><div class="p-region">BRASIL 🇧🇷</div><b>Dantes</b><span>Movimentação e Precisão</span></div>
-                <button class="view-btn" onclick="applySensi(188, 182, 175, 170, 720, '42%')">APLICAR</button>
-            </div>
+        .content { display: none; animation: scanFade 0.4s ease-out; }
+        .content.active { display: block; }
+        @keyframes scanFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-            <div class="player-card">
-                <div class="p-info"><div class="p-region">BRASIL 🇧🇷</div><b>Steluto</b><span>Rei do X1 / Sensi Alta</span></div>
-                <button class="view-btn" onclick="applySensi(195, 190, 185, 180, 800, '39%')">APLICAR</button>
-            </div>
+        /* Gerador Inteligente */
+        .input-box { background: var(--card); border: 1px solid #222; border-radius: 15px; padding: 15px; margin-bottom: 15px; border-left: 4px solid var(--p); }
+        .input-box label { font-size: 10px; color: var(--p); letter-spacing: 2px; font-weight: bold; display: block; }
+        input, select { width: 100%; background: transparent; border: none; border-bottom: 1px solid #333; color: white; padding: 8px 0; font-size: 15px; outline: none; margin-top: 5px; font-family: 'Poppins'; }
+        
+        .btn-action { width: 100%; padding: 18px; background: linear-gradient(45deg, var(--s), var(--a)); border: none; border-radius: 12px; color: white; font-family: 'Orbitron', sans-serif; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 10px; transition: 0.3s; box-shadow: 0 5px 20px rgba(255, 0, 85, 0.3); }
+        .btn-action:hover { transform: scale(1.02); filter: brightness(1.2); }
 
-            <div class="player-card">
-                <div class="p-info"><div class="p-region">BRASIL 🇧🇷</div><b>R7 FF</b><span>Clipadas Impossíveis</span></div>
-                <button class="view-btn" onclick="applySensi(198, 192, 188, 185, 850, '40%')">APLICAR</button>
-            </div>
+        /* Painel de Resultados Gamer */
+        #results { margin-top: 25px; display: none; }
+        .res-card { background: linear-gradient(135deg, #0d0d16, #161625); border: 1px solid var(--p); border-radius: 20px; padding: 20px; box-shadow: 0 0 30px rgba(0, 242, 255, 0.1); }
+        .grid-res { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .res-item { background: rgba(0,0,0,0.4); padding: 12px; border-radius: 12px; border: 1px solid #222; text-align: center; }
+        .res-item small { font-size: 9px; color: #777; display: block; text-transform: uppercase; }
+        .res-item b { font-size: 20px; color: var(--p); font-family: 'Orbitron', sans-serif; }
+        
+        /* Biblioteca com Scroll */
+        .lib-list { max-height: 400px; overflow-y: auto; padding-right: 5px; }
+        .player-card { background: #111; border: 1px solid #222; border-radius: 15px; padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid var(--s); transition: 0.3s; }
+        .player-card:hover { background: #1a1a25; transform: translateX(5px); }
+        .player-card b { font-size: 15px; color: #fff; display: block; }
+        .player-card span { font-size: 10px; color: #555; }
+        .copy-btn { background: var(--p); color: #000; border: none; padding: 8px 12px; border-radius: 6px; font-weight: bold; font-size: 10px; cursor: pointer; font-family: 'Orbitron'; }
 
-            <div class="player-card">
-                <div class="p-info"><div class="p-region">BRASIL 🇧🇷</div><b>Nobru</b><span>Equilibrada / O Pai</span></div>
-                <button class="view-btn" onclick="applySensi(182, 175, 170, 165, 520, '45%')">APLICAR</button>
-            </div>
+        #loader { display: none; text-align: center; margin: 20px; color: var(--p); font-family: 'Orbitron'; font-size: 12px; animation: blink 1s infinite; }
+        @keyframes blink { 50% { opacity: 0.5; } }
+    </style>
+</head>
+<body>
 
-            <div class="player-card">
-                <div class="p-info"><div class="p-region">BRASIL 🇧🇷</div><b>Thurzin</b><span>Full Speed / 4x4</span></div>
-                <button class="view-btn" onclick="applySensi(200, 198, 195, 192, 800, '38%')">APLICAR</button>
-            </div>
+<div class="app-container">
+    <div class="header">
+        <h1>SENSIFLOW AI</h1>
+        <div style="font-size: 9px; color: #555; letter-spacing: 2px;">CALIBRADOR DE ELITE V7.0</div>
+    </div>
 
-            <div class="player-card">
-                <div class="p-info"><div class="p-region">BRASIL 🇧🇷</div><b>Black444</b><span>One Tap Master (Deagle)</span></div>
-                <button class="view-btn" onclick="applySensi(195, 190, 185, 180, 900, '42%')">APLICAR</button>
-            </div>
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab('gen')">GERADOR IA</button>
+        <button class="tab-btn" onclick="openTab('lib')">BIBLIOTECA</button>
+    </div>
 
-            <div class="player-card">
-                <div class="p-info"><div class="p-region">BRASIL 🇧🇷</div><b>Two9</b><span>Rei da 4x / Recoil Zero</span></div>
-                <button class="view-btn" onclick="applySensi(168, 185, 192, 200, 580, '47%')">APLICAR</button>
+    <div id="gen" class="content active">
+        <div class="input-box">
+            <label>MODELO DO DISPOSITIVO</label>
+            <input type="text" id="dev" placeholder="Ex: POCO X3, IPHONE 13...">
+        </div>
+        <div class="input-box">
+            <label>MODO DE ALGORITMO</label>
+            <select id="aim">
+                <option value="1">FREESTYLE (SENSI ALTA / 200)</option>
+                <option value="2">COMPETITIVO (MIRA ESTÁVEL)</option>
+                <option value="3">ONE TAP (FOCO EM DESERT/M1014)</option>
+            </select>
+        </div>
+        <button class="btn-action" onclick="process()">CALIBRAR HARDWARE</button>
+        <div id="loader">ANALISANDO SENSORES...</div>
+        
+        <div id="results">
+            <div class="res-card">
+                <div class="grid-res">
+                    <div class="res-item"><small>Geral</small><b id="rg">0</b></div>
+                    <div class="res-item"><small>Red Dot</small><b id="rr">0</b></div>
+                    <div class="res-item"><small>Mira 2x</small><b id="r2">0</b></div>
+                    <div class="res-item"><small>Mira 4x</small><b id="r4">0</b></div>
+                    <div class="res-item"><small>DPI</small><b id="rd">0</b></div>
+                    <div class="res-item"><small>Botão</small><b id="rb">0</b></div>
+                </div>
             </div>
-
-            <div class="player-card">
-                <div class="p-info"><div class="p-region">MARROCOS 🇲🇦</div><b>White444</b><span>Ultra Fast / Full Vermelho</span></div>
-                <button class="view-btn" onclick="applySensi(200, 195, 190, 185, 960, '35%')">APLICAR</button>
-            </div>
-
-            <div class="player-card">
-                <div class="p-info"><div class="p-region">INDONÉSIA 🇮🇩</div><b>Ruok FF</b><span>The Sniper God</span></div>
-                <button class="view-btn" onclick="applySensi(198, 198, 198, 198, 900, '40%')">APLICAR</button>
-            </div>
-
-            <div class="player-card">
-                <div class="p-info"><div class="p-region">TAILÂNDIA 🇹🇭</div><b>Mincenzu</b><span>Controle de Spray (AR)</span></div>
-                <button class="view-btn" onclick="applySensi(175, 188, 195, 198, 600, '52%')">APLICAR</button>
-            </div>
-
-            <div class="player-card">
-                <div class="p-info"><div class="p-region">TUNÍSIA 🇹🇳</div><b>B2K</b><span>Rei da AWM</span></div>
-                <button class="view-btn" onclick="applySensi(165, 170, 175, 180, 550, '50%')">APLICAR</button>
-            </div>
-
-            <div class="player-card">
-                <div class="p-info"><div class="p-region">EQUADOR 🇪🇨</div><b>Akiles</b><span>Mestre do Mobile</span></div>
-                <button class="view-btn" onclick="applySensi(180, 175, 170, 165, 480, '44%')">APLICAR</button>
-            </div>
-
-            <div class="player-card">
-                <div class="p-info"><div class="p-region">BRASIL 🇧🇷</div><b>Ghost 999</b><span>Rei do iPad / Sensi Leve</span></div>
-                <button class="view-btn" onclick="applySensi(170, 175, 180, 185, 600, '45%')")>APLICAR</button>
-            </div>
-
-            <div class="player-card">
-                <div class="p-info"><div class="p-region">BRASIL 🇧🇷</div><b>Scraly</b><span>Destaque LBFF</span></div>
-                <button class="view-btn" onclick="applySensi(178, 180, 185, 190, 560, '48%')">APLICAR</button>
-            </div>
-
         </div>
     </div>
+
+    <div id="lib" class="content">
+        <div class="lib-list" id="library-container">
+            </div>
+    </div>
+</div>
+
+<script>
+    const players = [
+        {name: "MARECHAL", info: "InstaPlayer / Freestyle", g: 200, r: 195, x2: 192, x4: 188, d: 960, b: "35%"},
+        {name: "NOBRU", info: "O Pai / Equilibrada", g: 182, r: 170, x2: 168, x4: 160, d: 520, b: "48%"},
+        {name: "WHITE444", info: "Full Vermelho / Desert", g: 200, r: 198, x2: 195, x4: 190, d: 850, b: "38%"},
+        {name: "TWO9", info: "Recoil Zero / 4x King", g: 165, r: 182, x2: 195, x4: 200, d: 600, b: "45%"},
+        {name: "THURZIN", info: "Speed / 4x4", g: 195, r: 190, x2: 185, x4: 180, d: 720, b: "40%"},
+        {name: "RUOK FF", info: "Indonésia / Sniper God", g: 198, r: 198, x2: 198, x4: 198, d: 900, b: "42%"},
+        {name: "DANTES", info: "Movimentação / Clipada", g: 190, r: 185, x2: 180, x4: 175, d: 800, b: "39%"}
+    ];
+
+    function initLibrary() {
+        const container = document.getElementById('library-container');
+        players.forEach(p => {
+            container.innerHTML += `
+                <div class="player-card">
+                    <div><b>${p.name}</b><span>${p.info}</span></div>
+                    <button class="copy-btn" onclick="applySensi(${p.g}, ${p.r}, ${p.x2}, ${p.x4}, ${p.d}, '${p.b}')">APLICAR</button>
+                </div>`;
+        });
+    }
+
+    function openTab(t) {
+        document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(t).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+
+    function process() {
+        document.getElementById('loader').style.display = 'block';
+        document.getElementById('results').style.display = 'none';
+        setTimeout(() => {
+            document.getElementById('loader').style.display = 'none';
+            const aim = document.getElementById('aim').value;
+            let base = aim == '1' ? 190 : (aim == '2' ? 165 : 145);
+            const v = (n) => n + (Math.floor(Math.random() * 10) - 5);
+            applySensi(v(base), v(base-10), v(base-5), v(base+10), Math.floor(Math.random()*400)+450, Math.floor(Math.random()*15)+38+'%');
+        }, 1500);
+    }
+
+    function applySensi(g, r, x2, x4, d, b) {
+        document.getElementById('rg').innerText = g;
+        document.getElementById('rr').innerText = r;
+        document.getElementById('r2').innerText = x2;
+        document.getElementById('r4').innerText = x4;
+        document.getElementById('rd').innerText = d;
+        document.getElementById('rb').innerText = b;
+        openTab('gen');
+        document.getElementById('results').style.display = 'block';
+    }
+
+    initLibrary();
+</script>
+</body>
+</html>
