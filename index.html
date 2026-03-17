@@ -3,67 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SensiFlow AI 2026 - Oficial</title>
+    <title>SensiFlow AI 2.0 - Pro Edition</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #0f0f1f; color: white; text-align: center; padding: 20px; }
-        .container { max-width: 400px; margin: auto; background: #1a1a2e; padding: 20px; border-radius: 15px; border: 2px solid #e94560; box-shadow: 0 0 20px rgba(233, 69, 96, 0.3); }
-        h1 { color: #e94560; font-size: 24px; }
-        select, input, button { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; font-size: 16px; }
-        button { background: #e94560; color: white; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        button:hover { background: #ff2e63; transform: scale(1.02); }
-        .result { background: #16213e; padding: 15px; border-radius: 10px; margin-top: 20px; text-align: left; display: none; border-left: 4px solid #00d2ff; }
-        .val { color: #00d2ff; font-weight: bold; float: right; }
+        :root { --primary: #00f2ff; --secondary: #7000ff; --accent: #ff0055; }
+        body { font-family: 'Inter', sans-serif; background: #050505; color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .card { width: 90%; max-width: 450px; background: #111; border-radius: 20px; padding: 25px; border: 1px solid #333; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--primary), var(--secondary)); }
+        
+        h1 { font-size: 28px; margin-bottom: 5px; background: linear-gradient(to right, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        p.subtitle { color: #666; font-size: 14px; margin-bottom: 25px; }
+
+        .input-group { text-align: left; margin-bottom: 15px; }
+        label { font-size: 12px; color: var(--primary); font-weight: bold; text-transform: uppercase; margin-left: 5px; }
+        input, select { width: 100%; padding: 14px; margin-top: 5px; background: #1a1a1a; border: 1px solid #333; border-radius: 10px; color: white; outline: none; box-sizing: border-box; }
+        
+        button { width: 100%; padding: 16px; background: linear-gradient(45deg, var(--secondary), var(--accent)); border: none; border-radius: 12px; color: white; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        button:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(112, 0, 255, 0.4); }
+
+        .loading { display: none; margin: 20px 0; font-style: italic; color: var(--primary); animation: blink 1s infinite; }
+        @keyframes blink { 50% { opacity: 0.3; } }
+
+        .result-box { display: none; margin-top: 25px; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 15px; border-left: 5px solid var(--primary); text-align: left; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
+        .item { background: #1a1a1a; padding: 10px; border-radius: 8px; border: 1px solid #222; }
+        .item span { display: block; font-size: 10px; color: #888; }
+        .item b { font-size: 18px; color: var(--primary); }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>SensiFlow AI 🤖</h1>
-    <p>Calibração de Precisão (Escala 200)</p>
-    
-    <input type="text" id="phone" placeholder="Modelo do Celular (Ex: S23 Ultra)">
-    
-    <select id="style">
-        <option value="baixa">Sensibilidade Baixa (Precisão)</option>
-        <option value="media">Sensibilidade Média (Equilibrada)</option>
-        <option value="alta">Sensibilidade Alta (Velocidade)</option>
-    </select>
+<div class="card">
+    <h1>SensiFlow <span style="color:var(--accent)">2.0</span></h1>
+    <p class="subtitle">Análise de Hardware & Engine IA 2026</p>
 
-    <button onclick="generateSensi()">GERAR NOVA CALIBRAÇÃO</button>
+    <div class="input-group">
+        <label>Dispositivo</label>
+        <input type="text" id="phone" placeholder="Ex: iPhone 15 Pro, POCO F5...">
+    </div>
 
-    <div id="result" class="result">
-        <p>Geral: <span id="r-geral" class="val">0</span></p>
-        <p>Ponto Vermelho: <span id="r-red" class="val">0</span></p>
-        <p>Mira 2x: <span id="r-2x" class="val">0</span></p>
-        <p>Mira 4x: <span id="r-4x" class="val">0</span></p>
-        <p>Botão de Atirar: <span id="r-btn" class="val">0</span></p>
-        <hr style="border: 0.5px solid #333;">
-        <p style="font-size: 12px; color: #888;">*IA Calibrada para o servidor atual.*</p>
+    <div class="input-group">
+        <label>Estilo de Jogador (Clone)</label>
+        <select id="player">
+            <option value="equilibrado">Padrão IA (Equilibrado)</option>
+            <option value="nobru">Nobru (Foco 2x / Mira Branca)</option>
+            <option value="thurzin">Thurzin (Alta Velocidade / 4x)</option>
+            <option value="bak">Bak (Insta-Player / Movimentação)</option>
+        </select>
+    </div>
+
+    <button onclick="startAnalysis()">CALIBRAR AGORA</button>
+    <div id="loading" class="loading">ANALISANDO SENSORES DO TOUCH...</div>
+
+    <div id="result" class="result-box">
+        <div style="font-weight: bold; margin-bottom: 10px;">⚡ SENSI GERADA (ATÉ 200):</div>
+        <div class="grid">
+            <div class="item"><span>GERAL</span><b id="res-geral">0</b></div>
+            <div class="item"><span>RED DOT</span><b id="res-red">0</b></div>
+            <div class="item"><span>MIRA 2x</span><b id="res-2x">0</b></div>
+            <div class="item"><span>MIRA 4x</span><b id="res-4x">0</b></div>
+            <div class="item"><span>DPI SUGERIDA</span><b id="res-dpi">0</b></div>
+            <div class="item"><span>BOTÃO</span><b id="res-btn">0</b></div>
+        </div>
+        <p style="font-size: 11px; color: #555; margin-top: 15px;">*Ajuste de Recoil: Ativar 'Remover animações' nas configs do sistema para maior estabilidade.*</p>
     </div>
 </div>
 
 <script>
-function generateSensi() {
-    const style = document.getElementById('style').value;
-    let base;
+function startAnalysis() {
+    const loader = document.getElementById('loading');
+    const result = document.getElementById('result');
+    
+    loader.style.display = 'block';
+    result.style.display = 'none';
 
-    if(style === 'baixa') base = 90;
-    else if(style === 'media') base = 135;
-    else base = 175;
+    setTimeout(() => {
+        loader.style.display = 'none';
+        generateData();
+        result.style.display = 'block';
+    }, 2000);
+}
 
-    // Lógica de Variabilidade SensiFlow (Sempre gera algo novo +-5)
-    const randomShift = () => Math.floor(Math.random() * 11) - 5;
+function generateData() {
+    const player = document.getElementById('player').value;
+    let base = 140;
+    
+    if(player === 'nobru') base = 125;
+    if(player === 'thurzin') base = 185;
+    if(player === 'bak') base = 160;
 
-    document.getElementById('r-geral').innerText = base + randomShift();
-    document.getElementById('r-red').innerText = (base - 10) + randomShift();
-    document.getElementById('r-2x').innerText = (base - 5) + randomShift();
-    document.getElementById('r-4x').innerText = (base + 5) + randomShift();
-    document.getElementById('r-btn').innerText = Math.floor(Math.random() * (55 - 40 + 1)) + 40 + "%";
+    const v = (n) => n + (Math.floor(Math.random() * 9) - 4); // Variabilidade +-4
 
-    document.getElementById('result').style.display = 'block';
+    document.getElementById('res-geral').innerText = v(base);
+    document.getElementById('res-red').innerText = v(base - 15);
+    document.getElementById('res-2x').innerText = v(base - 5);
+    document.getElementById('res-4x').innerText = v(base + 10);
+    document.getElementById('res-dpi').innerText = Math.floor(Math.random() * (700 - 450)) + 450;
+    document.getElementById('res-btn').innerText = (Math.floor(Math.random() * (52 - 38)) + 38) + "%";
 }
 </script>
 
 </body>
-    </html>
+                                                      </html>
     
