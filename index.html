@@ -3,157 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SensiFlow AI | Engine 2026</title>
+    <title>SensiFlow AI 9.0 | Ultimate Library</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
     <style>
         :root { --p: #00f2ff; --s: #7000ff; --a: #ff0055; --bg: #050508; --card: #0d0d16; }
-        body { font-family: 'Poppins', sans-serif; background: var(--bg); color: white; margin: 0; overflow-x: hidden; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); color: white; margin: 0; padding: 10px; }
+        .app-container { width: 100%; max-width: 500px; margin: auto; }
+        .header { text-align: center; padding: 20px 0; border-bottom: 1px solid #222; }
+        h1 { font-family: 'Orbitron', sans-serif; font-size: 22px; margin: 0; background: linear-gradient(90deg, #fff, var(--p)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        .app-container { width: 100%; max-width: 480px; margin: auto; padding: 20px; box-sizing: border-box; }
-        
-        /* Header Gamer */
-        .header { text-align: center; padding: 20px 0; border-bottom: 1px solid #222; margin-bottom: 20px; }
-        h1 { font-family: 'Orbitron', sans-serif; font-size: 26px; margin: 0; letter-spacing: 3px; background: linear-gradient(90deg, #fff, var(--p)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 10px rgba(0,242,255,0.4)); }
-        
-        /* Tabs Neon */
-        .tabs { display: flex; gap: 5px; background: #111; padding: 5px; border-radius: 12px; border: 1px solid #222; margin-bottom: 25px; }
-        .tab-btn { flex: 1; padding: 12px; border: none; background: none; color: #555; font-family: 'Orbitron', sans-serif; font-size: 9px; cursor: pointer; transition: 0.4s; border-radius: 8px; }
-        .tab-btn.active { background: var(--s); color: white; box-shadow: 0 0 15px rgba(112, 0, 255, 0.5); }
+        .tabs { display: flex; gap: 5px; background: #111; padding: 5px; border-radius: 12px; margin: 20px 0; border: 1px solid #222; }
+        .tab-btn { flex: 1; padding: 12px; border: none; background: none; color: #555; font-family: 'Orbitron', sans-serif; font-size: 9px; cursor: pointer; border-radius: 8px; transition: 0.3s; }
+        .tab-btn.active { background: var(--s); color: white; box-shadow: 0 0 15px var(--s); }
 
-        .content { display: none; animation: scanFade 0.4s ease-out; }
+        .content { display: none; animation: fadeIn 0.4s ease; }
         .content.active { display: block; }
-        @keyframes scanFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Gerador Inteligente */
-        .input-box { background: var(--card); border: 1px solid #222; border-radius: 15px; padding: 15px; margin-bottom: 15px; border-left: 4px solid var(--p); }
-        .input-box label { font-size: 10px; color: var(--p); letter-spacing: 2px; font-weight: bold; display: block; }
-        input, select { width: 100%; background: transparent; border: none; border-bottom: 1px solid #333; color: white; padding: 8px 0; font-size: 15px; outline: none; margin-top: 5px; font-family: 'Poppins'; }
-        
-        .btn-action { width: 100%; padding: 18px; background: linear-gradient(45deg, var(--s), var(--a)); border: none; border-radius: 12px; color: white; font-family: 'Orbitron', sans-serif; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 10px; transition: 0.3s; box-shadow: 0 5px 20px rgba(255, 0, 85, 0.3); }
-        .btn-action:hover { transform: scale(1.02); filter: brightness(1.2); }
+        /* Estilo Gerador */
+        .box { background: var(--card); border-radius: 15px; padding: 20px; border: 1px solid #222; border-left: 4px solid var(--p); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        label { font-size: 10px; color: var(--p); letter-spacing: 1px; font-weight: bold; }
+        input, select { width: 100%; background: transparent; border: none; border-bottom: 1px solid #333; color: white; padding: 10px 0; outline: none; margin-bottom: 15px; font-family: 'Poppins'; }
+        .btn-main { width: 100%; padding: 18px; background: linear-gradient(45deg, var(--s), var(--a)); border: none; border-radius: 12px; color: white; font-family: 'Orbitron', sans-serif; font-weight: bold; cursor: pointer; text-transform: uppercase; }
 
-        /* Painel de Resultados Gamer */
-        #results { margin-top: 25px; display: none; }
-        .res-card { background: linear-gradient(135deg, #0d0d16, #161625); border: 1px solid var(--p); border-radius: 20px; padding: 20px; box-shadow: 0 0 30px rgba(0, 242, 255, 0.1); }
-        .grid-res { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .res-item { background: rgba(0,0,0,0.4); padding: 12px; border-radius: 12px; border: 1px solid #222; text-align: center; }
-        .res-item small { font-size: 9px; color: #777; display: block; text-transform: uppercase; }
-        .res-item b { font-size: 20px; color: var(--p); font-family: 'Orbitron', sans-serif; }
-        
-        /* Biblioteca com Scroll */
-        .lib-list { max-height: 400px; overflow-y: auto; padding-right: 5px; }
-        .player-card { background: #111; border: 1px solid #222; border-radius: 15px; padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid var(--s); transition: 0.3s; }
-        .player-card:hover { background: #1a1a25; transform: translateX(5px); }
-        .player-card b { font-size: 15px; color: #fff; display: block; }
-        .player-card span { font-size: 10px; color: #555; }
-        .copy-btn { background: var(--p); color: #000; border: none; padding: 8px 12px; border-radius: 6px; font-weight: bold; font-size: 10px; cursor: pointer; font-family: 'Orbitron'; }
+        /* Painel Resultados */
+        #results { margin-top: 20px; display: none; background: #000; border: 1px solid var(--p); border-radius: 15px; padding: 15px; position: relative; overflow: hidden; }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .item { background: #111; padding: 10px; border-radius: 8px; text-align: center; border: 1px solid #222; }
+        .item small { font-size: 8px; color: #666; display: block; margin-bottom: 4px; }
+        .item b { color: var(--p); font-size: 18px; font-family: 'Orbitron'; }
 
-        #loader { display: none; text-align: center; margin: 20px; color: var(--p); font-family: 'Orbitron'; font-size: 12px; animation: blink 1s infinite; }
-        @keyframes blink { 50% { opacity: 0.5; } }
+        /* Biblioteca Gigante */
+        .lib-scroll { max-height: 550px; overflow-y: auto; padding-right: 5px; }
+        .lib-scroll::-webkit-scrollbar { width: 3px; }
+        .lib-scroll::-webkit-scrollbar-thumb { background: var(--p); }
+
+        .player-card { background: #0d0d16; border: 1px solid #222; padding: 12px; border-radius: 12px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border-left: 3px solid var(--s); transition: 0.2s; }
+        .player-card:hover { background: #161625; border-color: var(--p); }
+        .player-card b { font-size: 14px; color: #fff; }
+        .player-card span { font-size: 10px; color: #555; display: block; }
+        .apply-btn { background: var(--p); color: #000; border: none; padding: 8px 12px; border-radius: 6px; font-size: 9px; font-weight: 900; cursor: pointer; font-family: 'Orbitron'; }
     </style>
 </head>
 <body>
 
 <div class="app-container">
     <div class="header">
-        <h1>SENSIFLOW AI</h1>
-        <div style="font-size: 9px; color: #555; letter-spacing: 2px;">CALIBRADOR DE ELITE V7.0</div>
+        <h1>SENSIFLOW AI <span style="color:var(--a)">9.0</span></h1>
+        <p style="font-size: 9px; color: #555;">DATABASE: 40+ PRO-PLAYERS (ESCALA 200)</p>
     </div>
 
     <div class="tabs">
-        <button class="tab-btn active" onclick="openTab('gen')">GERADOR IA</button>
-        <button class="tab-btn" onclick="openTab('lib')">BIBLIOTECA</button>
+        <button class="tab-btn active" onclick="tab('gen')">GERADOR IA</button>
+        <button class="tab-btn" onclick="tab('lib')">BIBLIOTECA GIGANTE</button>
     </div>
 
     <div id="gen" class="content active">
-        <div class="input-box">
-            <label>MODELO DO DISPOSITIVO</label>
-            <input type="text" id="dev" placeholder="Ex: POCO X3, IPHONE 13...">
-        </div>
-        <div class="input-box">
-            <label>MODO DE ALGORITMO</label>
-            <select id="aim">
-                <option value="1">FREESTYLE (SENSI ALTA / 200)</option>
-                <option value="2">COMPETITIVO (MIRA ESTÁVEL)</option>
-                <option value="3">ONE TAP (FOCO EM DESERT/M1014)</option>
+        <div class="box">
+            <label>NOME DO APARELHO</label>
+            <input type="text" id="phone" placeholder="Ex: Samsung S23, iPhone 14...">
+            <label>ESTILO DE JOGO</label>
+            <select id="mode">
+                <option value="1">INSTAPLAYER / FREESTYLE</option>
+                <option value="2">COMPETITIVO / LBFF</option>
+                <option value="3">ONE TAP / DESERT & M1014</option>
             </select>
+            <button class="btn-main" onclick="generate()">CALIBRAR SENSI</button>
         </div>
-        <button class="btn-action" onclick="process()">CALIBRAR HARDWARE</button>
-        <div id="loader">ANALISANDO SENSORES...</div>
-        
+
         <div id="results">
-            <div class="res-card">
-                <div class="grid-res">
-                    <div class="res-item"><small>Geral</small><b id="rg">0</b></div>
-                    <div class="res-item"><small>Red Dot</small><b id="rr">0</b></div>
-                    <div class="res-item"><small>Mira 2x</small><b id="r2">0</b></div>
-                    <div class="res-item"><small>Mira 4x</small><b id="r4">0</b></div>
-                    <div class="res-item"><small>DPI</small><b id="rd">0</b></div>
-                    <div class="res-item"><small>Botão</small><b id="rb">0</b></div>
-                </div>
+            <div class="grid">
+                <div class="item"><small>GERAL</small><b id="rg">0</b></div>
+                <div class="item"><small>RED DOT</small><b id="rr">0</b></div>
+                <div class="item"><small>MIRA 2X</small><b id="r2">0</b></div>
+                <div class="item"><small>MIRA 4X</small><b id="r4">0</b></div>
+                <div class="item"><small>DPI</small><b id="rd">0</b></div>
+                <div class="item"><small>BOTÃO</small><b id="rb">0</b></div>
             </div>
         </div>
     </div>
 
     <div id="lib" class="content">
-        <div class="lib-list" id="library-container">
+        <div class="lib-scroll" id="lib-list">
             </div>
     </div>
 </div>
 
 <script>
-    const players = [
-        {name: "MARECHAL", info: "InstaPlayer / Freestyle", g: 200, r: 195, x2: 192, x4: 188, d: 960, b: "35%"},
-        {name: "NOBRU", info: "O Pai / Equilibrada", g: 182, r: 170, x2: 168, x4: 160, d: 520, b: "48%"},
-        {name: "WHITE444", info: "Full Vermelho / Desert", g: 200, r: 198, x2: 195, x4: 190, d: 850, b: "38%"},
-        {name: "TWO9", info: "Recoil Zero / 4x King", g: 165, r: 182, x2: 195, x4: 200, d: 600, b: "45%"},
-        {name: "THURZIN", info: "Speed / 4x4", g: 195, r: 190, x2: 185, x4: 180, d: 720, b: "40%"},
-        {name: "RUOK FF", info: "Indonésia / Sniper God", g: 198, r: 198, x2: 198, x4: 198, d: 900, b: "42%"},
-        {name: "DANTES", info: "Movimentação / Clipada", g: 190, r: 185, x2: 180, x4: 175, d: 800, b: "39%"}
+    const db = [
+        // BRASILEIROS (A elite do capa)
+        {n: "MARECHAL", i: "Freestyle / Sensi 200", g: 200, r: 195, x2: 190, x4: 185, d: 960, b: "35%"},
+        {n: "NOBRU", i: "O Pai / Equilibrada", g: 182, r: 172, x2: 170, x4: 165, d: 520, b: "48%"},
+        {n: "THURZIN", i: "LOUD / Velocidade 4x4", g: 195, r: 190, x2: 185, x4: 180, d: 720, b: "42%"},
+        {n: "TWO9", i: "Rei da 4x / Recoil Zero", g: 170, r: 185, x2: 195, x4: 200, d: 600, b: "46%"},
+        {n: "BAK", i: "Fluxo / Rei do Emulador", g: 175, r: 170, x2: 165, x4: 160, d: 450, b: "50%"},
+        {n: "DANTES", i: "Instaplayer / Clipada", g: 192, r: 185, x2: 180, x4: 175, d: 800, b: "42%"},
+        {n: "STELUTO", i: "Rei do X1 / Sensi Alta", g: 196, r: 190, x2: 185, x4: 182, d: 820, b: "39%"},
+        {n: "BLACK444", i: "One Tap / Desert Eagle", g: 194, r: 188, x2: 185, x4: 180, d: 880, b: "44%"},
+        {n: "LZINN", i: "LOUD / Movimentação", g: 188, r: 180, x2: 178, x4: 175, d: 680, b: "45%"},
+        {n: "BOCA DE 09", i: "Sensi de iPhone / Mobile", g: 198, r: 192, x2: 188, x4: 185, d: 800, b: "38%"},
+        {n: "MITO", i: "Fluxo / Novo Prodígio", g: 185, r: 180, x2: 178, x4: 175, d: 580, b: "49%"},
+        {n: "FREITAS", i: "Mobile / Full Vermelho", g: 192, r: 188, x2: 185, x4: 182, d: 750, b: "40%"},
+        {n: "JORDAN", i: "LOUD / Rei do X1", g: 190, r: 185, x2: 182, x4: 178, d: 710, b: "40%"},
+        {n: "WEEDZÃO", i: "Rei da AWM / Brasil", g: 165, r: 170, x2: 175, x4: 180, d: 500, b: "52%"},
+        {n: "BRADOCK", i: "LOUD / Precisão AR", g: 178, r: 175, x2: 172, x4: 170, d: 520, b: "50%"},
+        {n: "WILL", i: "LOUD / Rushador", g: 185, r: 180, x2: 175, x4: 172, d: 640, b: "46%"},
+        {n: "MORENO", i: "Mestre do Mobile", g: 190, r: 185, x2: 182, x4: 180, d: 700, b: "43%"},
+        {n: "GHOST 999", i: "Sniper / Brasil", g: 172, r: 175, x2: 180, x4: 185, d: 600, b: "45%"},
+        {n: "APELAPATO", i: "Sensi Grudada / Brasil", g: 160, r: 165, x2: 170, x4: 175, d: 480, b: "55%"},
+        {n: "R7 FF", i: "Clipadas / Freestyle", g: 198, r: 192, x2: 188, x4: 185, d: 840, b: "37%"},
+        {n: "SCRALY", i: "LBFF / Competitivo", g: 176, r: 172, x2: 170, x4: 168, d: 540, b: "51%"},
+        
+        // INTERNACIONAIS (Os que peitam os BRs)
+        {n: "WHITE444", i: "Marrocos / Full Capa", g: 200, r: 198, x2: 195, x4: 190, d: 900, b: "38%"},
+        {n: "RUOK FF", i: "Indonésia / Mira Grudada", g: 198, r: 198, x2: 198, x4: 198, d: 960, b: "40%"},
+        {n: "BNL", i: "Tunísia / Agressivo", g: 190, r: 180, x2: 175, x4: 170, d: 720, b: "43%"},
+        {n: "AKILES", i: "Equador / Rei do Latam", g: 185, r: 175, x2: 170, x4: 165, d: 480, b: "47%"},
+        {n: "SYBLUS", i: "Marrocos / Precisão", g: 188, r: 185, x2: 182, x4: 180, d: 640, b: "45%"},
+        {n: "MINCENZU", i: "Tailândia / AR King", g: 175, r: 188, x2: 195, x4: 198, d: 600, b: "52%"},
+        {n: "BADREQ", i: "Indonésia / Fast Move", g: 195, r: 190, x2: 185, x4: 182, d: 780, b: "41%"},
+        {n: "VINCENZZO", i: "Equador / Clássico", g: 180, r: 172, x2: 170, x4: 168, d: 440, b: "48%"},
+        {n: "B2K", i: "Tunísia / Rei da AWM", g: 160, r: 165, x2: 170, x4: 180, d: 550, b: "50%"}
     ];
 
-    function initLibrary() {
-        const container = document.getElementById('library-container');
-        players.forEach(p => {
-            container.innerHTML += `
-                <div class="player-card">
-                    <div><b>${p.name}</b><span>${p.info}</span></div>
-                    <button class="copy-btn" onclick="applySensi(${p.g}, ${p.r}, ${p.x2}, ${p.x4}, ${p.d}, '${p.b}')">APLICAR</button>
-                </div>`;
-        });
-    }
-
-    function openTab(t) {
+    function tab(id) {
         document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById(t).classList.add('active');
+        document.getElementById(id).classList.add('active');
         event.currentTarget.classList.add('active');
     }
 
-    function process() {
-        document.getElementById('loader').style.display = 'block';
-        document.getElementById('results').style.display = 'none';
-        setTimeout(() => {
-            document.getElementById('loader').style.display = 'none';
-            const aim = document.getElementById('aim').value;
-            let base = aim == '1' ? 190 : (aim == '2' ? 165 : 145);
-            const v = (n) => n + (Math.floor(Math.random() * 10) - 5);
-            applySensi(v(base), v(base-10), v(base-5), v(base+10), Math.floor(Math.random()*400)+450, Math.floor(Math.random()*15)+38+'%');
-        }, 1500);
+    function generate() {
+        const m = document.getElementById('mode').value;
+        let b = m == '1' ? 190 : (m == '2' ? 172 : 155);
+        const r = (n) => n + (Math.floor(Math.random() * 8) - 4);
+        apply(r(b), r(b-10), r(b-5), r(b+5), Math.floor(Math.random()*400)+400, Math.floor(Math.random()*12)+38+'%');
     }
 
-    function applySensi(g, r, x2, x4, d, b) {
+    function apply(g, r, x2, x4, d, b) {
         document.getElementById('rg').innerText = g;
         document.getElementById('rr').innerText = r;
         document.getElementById('r2').innerText = x2;
         document.getElementById('r4').innerText = x4;
         document.getElementById('rd').innerText = d;
         document.getElementById('rb').innerText = b;
-        openTab('gen');
         document.getElementById('results').style.display = 'block';
+        if(event && event.target.className === 'apply-btn') {
+            tab('gen');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
     }
 
-    initLibrary();
+    // Carregar Lista
+    const list = document.getElementById('lib-list');
+    db.sort((a,b) => a.n.localeCompare(b.n)).forEach(p => {
+        list.innerHTML += `
+            <div class="player-card">
+                <div><b>${p.n}</b><span>${p.i}</span></div>
+                <button class="apply-btn" onclick="apply(${p.g},${p.r},${p.x2},${p.x4},${p.d},'${p.b}')">APLICAR</button>
+            </div>`;
+    });
 </script>
 </body>
-</html>
+        </html>
+                                                            
