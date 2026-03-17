@@ -3,105 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SensiFlow AI 2.0 - Pro Edition</title>
+    <title>SensiFlow AI 3.0 - Pro Edition</title>
     <style>
-        :root { --primary: #00f2ff; --secondary: #7000ff; --accent: #ff0055; }
-        body { font-family: 'Inter', sans-serif; background: #050505; color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .card { width: 90%; max-width: 450px; background: #111; border-radius: 20px; padding: 25px; border: 1px solid #333; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--primary), var(--secondary)); }
+        :root { --primary: #00f2ff; --secondary: #7000ff; --accent: #ff0055; --bg: #08080c; --card: #12121a; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); color: white; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
         
-        h1 { font-size: 28px; margin-bottom: 5px; background: linear-gradient(to right, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        p.subtitle { color: #666; font-size: 14px; margin-bottom: 25px; }
-
-        .input-group { text-align: left; margin-bottom: 15px; }
-        label { font-size: 12px; color: var(--primary); font-weight: bold; text-transform: uppercase; margin-left: 5px; }
-        input, select { width: 100%; padding: 14px; margin-top: 5px; background: #1a1a1a; border: 1px solid #333; border-radius: 10px; color: white; outline: none; box-sizing: border-box; }
+        .container { width: 100%; max-width: 500px; }
+        .header { text-align: center; margin-bottom: 30px; }
+        h1 { font-size: 32px; margin: 0; background: linear-gradient(90deg, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        button { width: 100%; padding: 16px; background: linear-gradient(45deg, var(--secondary), var(--accent)); border: none; border-radius: 12px; color: white; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
-        button:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(112, 0, 255, 0.4); }
+        /* Tabs System */
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .tab-btn { flex: 1; padding: 12px; background: #1a1a25; border: 1px solid #333; color: #888; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .tab-btn.active { background: var(--secondary); color: white; border-color: var(--primary); box-shadow: 0 0 15px rgba(112, 0, 255, 0.4); }
 
-        .loading { display: none; margin: 20px 0; font-style: italic; color: var(--primary); animation: blink 1s infinite; }
-        @keyframes blink { 50% { opacity: 0.3; } }
+        .content { display: none; background: var(--card); padding: 25px; border-radius: 20px; border: 1px solid #222; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+        .content.active { display: block; animation: fadeIn 0.5s ease; }
 
-        .result-box { display: none; margin-top: 25px; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 15px; border-left: 5px solid var(--primary); text-align: left; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
-        .item { background: #1a1a1a; padding: 10px; border-radius: 8px; border: 1px solid #222; }
-        .item span { display: block; font-size: 10px; color: #888; }
-        .item b { font-size: 18px; color: var(--primary); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Generator Styling */
+        label { display: block; font-size: 11px; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; margin-top: 15px; }
+        input, select { width: 100%; padding: 15px; background: #08080c; border: 1px solid #333; border-radius: 12px; color: white; box-sizing: border-box; }
+        
+        .btn-main { width: 100%; padding: 18px; background: linear-gradient(45deg, var(--secondary), var(--accent)); border: none; border-radius: 12px; color: white; font-weight: 800; cursor: pointer; margin-top: 20px; text-transform: uppercase; transition: 0.3s; }
+        .btn-main:hover { transform: scale(1.02); filter: brightness(1.2); }
+
+        /* Sensi Display */
+        .sensi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
+        .sensi-item { background: #1a1a25; padding: 15px; border-radius: 12px; border: 1px solid #222; text-align: center; }
+        .sensi-item small { font-size: 10px; color: #666; display: block; }
+        .sensi-item b { font-size: 22px; color: var(--primary); }
+
+        /* Library Styling */
+        .library-item { background: #1a1a25; margin-bottom: 10px; padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid var(--accent); }
+        .lib-info b { display: block; font-size: 16px; }
+        .lib-info span { font-size: 12px; color: #777; }
+        .copy-btn { background: #333; padding: 8px 12px; border-radius: 8px; font-size: 11px; cursor: pointer; color: #fff; }
+
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h1>SensiFlow <span style="color:var(--accent)">2.0</span></h1>
-    <p class="subtitle">Análise de Hardware & Engine IA 2026</p>
-
-    <div class="input-group">
-        <label>Dispositivo</label>
-        <input type="text" id="phone" placeholder="Ex: iPhone 15 Pro, POCO F5...">
+<div class="container">
+    <div class="header">
+        <h1>SensiFlow AI 3.0</h1>
+        <p style="color: #555; font-size: 14px;">The Ultimate Free Fire Calibrator</p>
     </div>
 
-    <div class="input-group">
-        <label>Estilo de Jogador (Clone)</label>
-        <select id="player">
-            <option value="equilibrado">Padrão IA (Equilibrado)</option>
-            <option value="nobru">Nobru (Foco 2x / Mira Branca)</option>
-            <option value="thurzin">Thurzin (Alta Velocidade / 4x)</option>
-            <option value="bak">Bak (Insta-Player / Movimentação)</option>
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab('generator')">GERADOR IA</button>
+        <button class="tab-btn" onclick="openTab('library')">BIBLIOTECA</button>
+    </div>
+
+    <div id="generator" class="content active">
+        <label>Dispositivo detectado</label>
+        <input type="text" id="phone" placeholder="Ex: Xiaomi Poco X6, iPhone 14...">
+        
+        <label>Tipo de Mira Desejada</label>
+        <select id="aimType">
+            <option value="head">Foco em Headshot (Grudar no Capa)</option>
+            <option value="speed">Movimentação Ghost (Fast Click)</option>
+            <option value="stable">Mira Estabilizada (Zero Recoil)</option>
         </select>
+
+        <button class="btn-main" onclick="generateSensi()">CALIBRAR ALGORITMO</button>
+
+        <div id="results" style="display:none;">
+            <div class="sensi-grid">
+                <div class="sensi-item"><small>GERAL</small><b id="v-geral">0</b></div>
+                <div class="sensi-item"><small>RED DOT</small><b id="v-red">0</b></div>
+                <div class="sensi-item"><small>MIRA 2X</small><b id="v-2x">0</b></div>
+                <div class="sensi-item"><small>MIRA 4X</small><b id="v-4x">0</b></div>
+                <div class="sensi-item"><small>DPI</small><b id="v-dpi">0</b></div>
+                <div class="sensi-item"><small>BOTÃO</small><b id="v-btn">0</b></div>
+            </div>
+            <p style="font-size: 11px; color: #ff0055; margin-top: 15px; text-align: center;">✔ IA: Sensibilidade recalibrada para escala 200.</p>
+        </div>
     </div>
 
-    <button onclick="startAnalysis()">CALIBRAR AGORA</button>
-    <div id="loading" class="loading">ANALISANDO SENSORES DO TOUCH...</div>
-
-    <div id="result" class="result-box">
-        <div style="font-weight: bold; margin-bottom: 10px;">⚡ SENSI GERADA (ATÉ 200):</div>
-        <div class="grid">
-            <div class="item"><span>GERAL</span><b id="res-geral">0</b></div>
-            <div class="item"><span>RED DOT</span><b id="res-red">0</b></div>
-            <div class="item"><span>MIRA 2x</span><b id="res-2x">0</b></div>
-            <div class="item"><span>MIRA 4x</span><b id="res-4x">0</b></div>
-            <div class="item"><span>DPI SUGERIDA</span><b id="res-dpi">0</b></div>
-            <div class="item"><span>BOTÃO</span><b id="res-btn">0</b></div>
+    <div id="library" class="content">
+        <div class="library-item">
+            <div class="lib-info"><b>Nobru (Oficial 2026)</b><span>Foco: Mira Branca / Escala 200</span></div>
+            <div class="copy-btn" onclick="alert('Geral: 182 | 2x: 175 | 4x: 170 | DPI: 520')">VER</div>
         </div>
-        <p style="font-size: 11px; color: #555; margin-top: 15px;">*Ajuste de Recoil: Ativar 'Remover animações' nas configs do sistema para maior estabilidade.*</p>
+        <div class="library-item">
+            <div class="lib-info"><b>Thurzin (Full Mobile)</b><span>Foco: Velocidade Máxima</span></div>
+            <div class="copy-btn" onclick="alert('Geral: 198 | 2x: 195 | 4x: 190 | DPI: 800')">VER</div>
+        </div>
+        <div class="library-item">
+            <div class="lib-info"><b>Bak (Rei do Emulador)</b><span>Foco: InstaPlayer Style</span></div>
+            <div class="copy-btn" onclick="alert('Geral: 165 | 2x: 160 | 4x: 155 | DPI: 450')">VER</div>
+        </div>
+        <div class="library-item">
+            <div class="lib-info"><b>Two9 (Precisão Absoluta)</b><span>Foco: Estabilidade 4x</span></div>
+            <div class="copy-btn" onclick="alert('Geral: 170 | 2x: 185 | 4x: 195 | DPI: 600')">VER</div>
+        </div>
     </div>
 </div>
 
 <script>
-function startAnalysis() {
-    const loader = document.getElementById('loading');
-    const result = document.getElementById('result');
-    
-    loader.style.display = 'block';
-    result.style.display = 'none';
+    function openTab(tabName) {
+        document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(tabName).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
 
-    setTimeout(() => {
-        loader.style.display = 'none';
-        generateData();
-        result.style.display = 'block';
-    }, 2000);
-}
+    function generateSensi() {
+        const type = document.getElementById('aimType').value;
+        let base = 150;
+        if(type === 'head') base = 180;
+        if(type === 'stable') base = 130;
 
-function generateData() {
-    const player = document.getElementById('player').value;
-    let base = 140;
-    
-    if(player === 'nobru') base = 125;
-    if(player === 'thurzin') base = 185;
-    if(player === 'bak') base = 160;
+        const v = (val) => val + (Math.floor(Math.random() * 10) - 5);
 
-    const v = (n) => n + (Math.floor(Math.random() * 9) - 4); // Variabilidade +-4
-
-    document.getElementById('res-geral').innerText = v(base);
-    document.getElementById('res-red').innerText = v(base - 15);
-    document.getElementById('res-2x').innerText = v(base - 5);
-    document.getElementById('res-4x').innerText = v(base + 10);
-    document.getElementById('res-dpi').innerText = Math.floor(Math.random() * (700 - 450)) + 450;
-    document.getElementById('res-btn').innerText = (Math.floor(Math.random() * (52 - 38)) + 38) + "%";
-}
+        document.getElementById('v-geral').innerText = v(base);
+        document.getElementById('v-red').innerText = v(base - 10);
+        document.getElementById('v-2x').innerText = v(base - 5);
+        document.getElementById('v-4x').innerText = v(base + 8);
+        document.getElementById('v-dpi').innerText = Math.floor(Math.random() * (850 - 400)) + 400;
+        document.getElementById('v-btn').innerText = Math.floor(Math.random() * (55 - 35)) + 35 + "%";
+        
+        document.getElementById('results').style.display = 'block';
+    }
 </script>
 
 </body>
-                                                      </html>
-    
+</html>
