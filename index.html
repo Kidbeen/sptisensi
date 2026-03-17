@@ -1,174 +1,69 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Beruz Sensi IA 3.0</title>
-<link rel="manifest" href="manifest.json">
-<style>
-body{
-    background:#0f172a;
-    color:white;
-    font-family:Arial, sans-serif;
-    text-align:center;
-    margin:0;
-    padding:0;
-}
-h1{
-    color:#22c55e;
-    margin-top:20px;
-}
-button{
-    padding:12px 20px;
-    margin:8px;
-    border-radius:12px;
-    border:none;
-    background:#22c55e;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-}
-.card{
-    background:#1e293b;
-    padding:15px;
-    margin:15px;
-    border-radius:15px;
-}
-select{
-    padding:8px;
-    border-radius:8px;
-    border:none;
-    margin:5px;
-}
-#resultado{
-    margin-top:15px;
-    font-weight:bold;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SensiFlow AI 2026 - Oficial</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #0f0f1f; color: white; text-align: center; padding: 20px; }
+        .container { max-width: 400px; margin: auto; background: #1a1a2e; padding: 20px; border-radius: 15px; border: 2px solid #e94560; box-shadow: 0 0 20px rgba(233, 69, 96, 0.3); }
+        h1 { color: #e94560; font-size: 24px; }
+        select, input, button { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; font-size: 16px; }
+        button { background: #e94560; color: white; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #ff2e63; transform: scale(1.02); }
+        .result { background: #16213e; padding: 15px; border-radius: 10px; margin-top: 20px; text-align: left; display: none; border-left: 4px solid #00d2ff; }
+        .val { color: #00d2ff; font-weight: bold; float: right; }
+    </style>
 </head>
 <body>
 
-<h1>🔥 BERUZ SENSI IA 3.0 🔥</h1>
+<div class="container">
+    <h1>SensiFlow AI 🤖</h1>
+    <p>Calibração de Precisão (Escala 200)</p>
+    
+    <input type="text" id="phone" placeholder="Modelo do Celular (Ex: S23 Ultra)">
+    
+    <select id="style">
+        <option value="baixa">Sensibilidade Baixa (Precisão)</option>
+        <option value="media">Sensibilidade Média (Equilibrada)</option>
+        <option value="alta">Sensibilidade Alta (Velocidade)</option>
+    </select>
 
-<!-- BOT SENSI -->
-<div class="card" id="sensiCard">
-<h2>🤖 GERADOR DE SENSI</h2>
+    <button onclick="generateSensi()">GERAR NOVA CALIBRAÇÃO</button>
 
-<select id="marca">
-<option>Xiaomi</option>
-<option>Samsung</option>
-<option>iPhone</option>
-<option>Realme</option>
-<option>Infinix</option>
-<option>Tecno</option>
-<option>Huawei</option>
-<option>OPPO</option>
-<option>Vivo</option>
-<option>Motorola</option>
-</select>
-
-<select id="tipo">
-<option>Baixa</option>
-<option>Média</option>
-<option>Alta</option>
-</select>
-
-<select id="estilo">
-<option>Leve</option>
-<option>Estabilizada</option>
-</select>
-
-<select id="dpi">
-<option>Sem DPI</option>
-<option>Com DPI</option>
-</select>
-
-<br>
-<button onclick="gerar()">GERAR SENSI</button>
-
-<p id="resultado"></p>
-<button onclick="like()">👍 SENSI BOA</button>
-</div>
-
-<!-- BIBLIOTECA -->
-<div class="card">
-<h2>📚 BIBLIOTECA DE SENSI</h2>
-<button onclick="alert('Sensi Freestyle')">Freestyle</button>
-<button onclick="alert('Sensi Insta Player')">Insta Player</button>
-<button onclick="alert('Sensi Rush')">Rush Player</button>
-<button onclick="alert('Sensi Insane Drive')">Insane Drive</button>
-<button onclick="alert('Sensi Pulante Play')">Pulante Play</button>
-</div>
-
-<!-- TUTORIAIS -->
-<div class="card">
-<h2>🎯 TUTORIAIS</h2>
-<button onclick="window.open('https://youtube.com')">Método 2x</button>
-<button onclick="window.open('https://youtube.com')">Drag Shot</button>
-<button onclick="window.open('https://youtube.com')">Micro Puxada</button>
-<button onclick="window.open('https://youtube.com')">Puxada Longa</button>
-</div>
-
-<!-- OTIMIZAR JOGO -->
-<div class="card">
-<h2>⚡ OTIMIZAR JOGO</h2>
-<button onclick="alert('RAM Limpa')">Limpar RAM</button>
-<button onclick="alert('Modo Desempenho Ativado')">Modo Desempenho</button>
-<button onclick="alert('Modo FPS Ativado')">Modo FPS</button>
-<button onclick="alert('Free Fire Aberto')">Abrir Free Fire</button>
-</div>
-
-<!-- BOT WHATSAPP -->
-<div class="card">
-<h2>💬 BOT WHATSAPP</h2>
-<a href="https://wa.me/258XXXXXXXXX">
-<button>FALAR COM BOT</button>
-</a>
-</div>
-
-<!-- PREMIUM -->
-<div class="card">
-<h2>⭐ PREMIUM</h2>
-<button onclick="alert('Funções VIP desbloqueadas!')">ATIVAR PREMIUM</button>
+    <div id="result" class="result">
+        <p>Geral: <span id="r-geral" class="val">0</span></p>
+        <p>Ponto Vermelho: <span id="r-red" class="val">0</span></p>
+        <p>Mira 2x: <span id="r-2x" class="val">0</span></p>
+        <p>Mira 4x: <span id="r-4x" class="val">0</span></p>
+        <p>Botão de Atirar: <span id="r-btn" class="val">0</span></p>
+        <hr style="border: 0.5px solid #333;">
+        <p style="font-size: 12px; color: #888;">*IA Calibrada para o servidor atual.*</p>
+    </div>
 </div>
 
 <script>
-// Gerador de Sensi
-function gerar(){
-    let geral=Math.floor(Math.random()*200);
-    let red=Math.floor(Math.random()*200);
-    let x2=Math.floor(Math.random()*200);
-    let x4=Math.floor(Math.random()*200);
-    let awm=Math.floor(Math.random()*200);
+function generateSensi() {
+    const style = document.getElementById('style').value;
+    let base;
 
-    // Salvar sensi no localStorage
-    let tipo=document.getElementById("tipo").value;
-    let sensi={
-        geral:geral,
-        red:red,
-        x2:x2,
-        x4:x4,
-        awm:awm
-    };
-    localStorage.setItem("sensi_"+tipo, JSON.stringify(sensi));
+    if(style === 'baixa') base = 90;
+    else if(style === 'media') base = 135;
+    else base = 175;
 
-    document.getElementById("resultado").innerHTML=
-    `GERAL: ${geral}<br>
-    RED DOT: ${red}<br>
-    2X: ${x2}<br>
-    4X: ${x4}<br>
-    AWM: ${awm}`;
-}
+    // Lógica de Variabilidade SensiFlow (Sempre gera algo novo +-5)
+    const randomShift = () => Math.floor(Math.random() * 11) - 5;
 
-// Botão Like
-function like(){
-    let likes=localStorage.getItem("likes");
-    if(!likes) likes=0;
-    likes++;
-    localStorage.setItem("likes",likes);
-    alert("Obrigado pelo like 👍 Total: "+likes);
+    document.getElementById('r-geral').innerText = base + randomShift();
+    document.getElementById('r-red').innerText = (base - 10) + randomShift();
+    document.getElementById('r-2x').innerText = (base - 5) + randomShift();
+    document.getElementById('r-4x').innerText = (base + 5) + randomShift();
+    document.getElementById('r-btn').innerText = Math.floor(Math.random() * (55 - 40 + 1)) + 40 + "%";
+
+    document.getElementById('result').style.display = 'block';
 }
 </script>
 
 </body>
-</html>
+    </html>
+    
