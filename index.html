@@ -1,69 +1,114 @@
-<div id="ff-optimizer-v4" style="background: linear-gradient(135deg, #000, #1a1a1a); color: #00ffcc; font-family: 'Segoe UI', sans-serif; padding: 25px; border: 3px solid #00ffcc; border-radius: 15px;">
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SENSITIVITY GOD V5 - SUPREMACIA FF</title>
+    <style>
+        :root { --neon: #00ff41; --bg: #050505; --card: #111; }
+        body { background: var(--bg); color: white; font-family: 'Orbitron', sans-serif; margin: 0; padding: 20px; text-transform: uppercase; }
+        .container { max-width: 1200px; margin: auto; border: 4px solid var(--neon); box-shadow: 0 0 20px var(--neon); border-radius: 20px; padding: 30px; }
+        
+        h1 { font-size: 3rem; text-align: center; color: var(--neon); text-shadow: 0 0 15px var(--neon); margin-bottom: 40px; }
+        
+        /* GERADOR GIGANTE */
+        .generator-box { background: var(--card); padding: 40px; border-radius: 15px; border-left: 10px solid var(--neon); margin-bottom: 40px; }
+        .generator-box h2 { font-size: 2rem; color: #fff; }
+        select, input, button { width: 100%; padding: 20px; font-size: 1.5rem; margin-top: 20px; border-radius: 10px; cursor: pointer; }
+        select { background: #222; color: var(--neon); border: 2px solid var(--neon); }
+        button { background: var(--neon); color: black; font-weight: bold; border: none; transition: 0.3s; }
+        button:hover { transform: scale(1.02); box-shadow: 0 0 30px var(--neon); }
 
-    <h1 style="text-align:center; text-shadow: 0 0 10px #00ffcc;">🚀 SUPREMACIA FF: GERADOR 7.0x</h1>
+        /* PAINEL DE RESULTADOS (Onde a Sensi completa aparece) */
+        #display-master { display: none; margin-top: 30px; background: #000; padding: 30px; border: 2px dashed var(--neon); font-size: 1.8rem; line-height: 1.6; }
+        .highlight { color: var(--neon); font-weight: bold; }
 
-    <section style="background: #111; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
-        <h3>🎯 Configuração de Mira (Anti-Pinar)</h3>
-        <label>Selecione a Intensidade do Multiplicador:</label>
-        <select id="multiplier" style="width:100%; padding:10px; background:#222; color:#0ff; border:1px solid #0ff;">
-            <option value="1.0">1.0x (Padrão)</option>
-            <option value="2.5">2.5x (Rápida)</option>
-            <option value="5.0">5.0x (Insana)</option>
-            <option value="7.0">7.0x (Velocidade da Luz - Experimental)</option>
+        /* BIBLIOTECA EM GRADE (MUITOS JOGADORES) */
+        .library-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 40px; }
+        .pro-card { background: #1a1a1a; padding: 20px; border: 1px solid #333; border-radius: 10px; cursor: pointer; transition: 0.3s; }
+        .pro-card:hover { border-color: var(--neon); background: #222; }
+        .pro-name { color: var(--neon); font-size: 1.3rem; margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🔥 SENSITIVITY GOD V5.0 🔥</h1>
+
+    <div class="generator-box">
+        <h2>🚀 GERADOR DE SENSI ULTRA 7.0X</h2>
+        <p>Ajuste o multiplicador para destravar a mira "Full Red":</p>
+        <select id="boost">
+            <option value="1">1.0x - Padrão Mobile</option>
+            <option value="3">3.0x - Velocidade Intermediária</option>
+            <option value="5">5.0x - Insano (Apenas Pros)</option>
+            <option value="7">7.0x - MODO DEUS (MIRA NÃO PINA)</option>
         </select>
-        
-        <div style="margin-top:15px;">
-            <button onclick="generateGodSensi()" style="width:100%; padding:15px; background:#00ffcc; color:#000; font-weight:bold; border:none; cursor:pointer; border-radius:5px;">GERAR CONFIGURAÇÃO SUPREMA</button>
-        </div>
-        
-        <div id="result-box" style="margin-top:15px; display:none; background:#000; padding:15px; border:1px dashed #0ff;">
-            <p id="sensi-res"></p>
-            <p id="dpi-res"></p>
-            <p id="recoil-res" style="color:#ff00ea; font-weight:bold;"></p>
-        </div>
-    </section>
+        <button onclick="injectSensi()">INJETAR CONFIGURAÇÃO NO SITE</button>
 
-    <section style="background: #111; padding: 15px; border-radius: 10px;">
-        <h3>🌍 World Pro-Player Library (Global)</h3>
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-            <button onclick="getPro('Two9')" style="background:#333; color:#fff;">Two9 (Ajuste Fino)</button>
-            <button onclick="getPro('White444')" style="background:#333; color:#fff;">White444 (Macro Style)</button>
-            <button onclick="getPro('B4K')" style="background:#333; color:#fff;">B4K (Rei do Emulador)</button>
-            <button onclick="getPro('Syoa')" style="background:#333; color:#fff;">Syoa (Indonésia)</button>
-            <button onclick="getPro('Rai')" style="background:#333; color:#fff;">Rai (Tailândia)</button>
-            <button onclick="getPro('Mino')" style="background:#333; color:#fff;">Mino (Latam)</button>
+        <div id="display-master">
+            <h3 style="color:red">SISTEMA ATUALIZADO: SENSI 200 REVELADA</h3>
+            <p>➜ GERAL: <span id="g-val" class="highlight"></span></p>
+            <p>➜ RED DOT: <span id="r-val" class="highlight"></span></p>
+            <p>➜ MIRA 2X: <span id="2x-val" class="highlight"></span></p>
+            <p>➜ MIRA 4X: <span id="4x-val" class="highlight"></span></p>
+            <p>➜ DPI RECOMENDADA: <span id="dpi-val" class="highlight"></span></p>
+            <p>➜ BOTÃO DE TIRO: <span id="btn-val" class="highlight"></span></p>
+            <p style="font-size: 1.2rem; border-top: 1px solid #333; padding-top: 10px;">
+                ⚙️ <span class="highlight">AJUSTE NO RECOIL:</span> Velocidade do ponteiro no Máximo + Supressão em 0.1s. 
+                Isso estabiliza o tiro para sair 100% RECTO sem espalhar as balas.
+            </p>
         </div>
-        <div id="pro-info" style="margin-top:15px; font-style:italic; color:#00ffcc;"></div>
-    </section>
+    </div>
 
+    <h2>🌍 BIBLIOTECA GLOBAL (TODOS OS FAMOSOS)</h2>
+    <div id="pro-library" class="library-grid">
+        </div>
 </div>
 
 <script>
-function generateGodSensi() {
-    const mult = parseFloat(document.getElementById('multiplier').value);
-    const box = document.getElementById('result-box');
-    box.style.display = "block";
+    // BANCO DE DADOS MASSIVO
+    const players = [
+        {name: "Two9", sensi: "200/200/200/200", dpi: "720", btn: "45%"},
+        {name: "Nobru", sensi: "185/192/170/165", dpi: "512", btn: "52%"},
+        {name: "White444", sensi: "200/180/200/200", dpi: "1200", btn: "40%"},
+        {name: "Thurzin", sensi: "195/200/200/180", dpi: "900", btn: "48%"},
+        {name: "Bak", sensi: "170/160/150/140", dpi: "800", btn: "55%"},
+        {name: "Syaz", sensi: "200/200/200/190", dpi: "800", btn: "44%"},
+        {name: "Ruok FF", sensi: "200/200/200/200", dpi: "1150", btn: "38%"},
+        {name: "M8N", sensi: "190/185/200/200", dpi: "960", btn: "42%"},
+        {name: "Vincenzo", sensi: "200/195/200/200", dpi: "600", btn: "50%"},
+        {name: "Syoa", sensi: "200/200/200/200", dpi: "700", btn: "47%"},
+        {name: "Mino", sensi: "180/175/190/200", dpi: "500", btn: "53%"},
+        {name: "Broken", sensi: "200/200/200/200", dpi: "1440", btn: "35%"},
+        {name: "Raistar", sensi: "200/190/200/185", dpi: "1000", btn: "40%"},
+        {name: "Badge99", sensi: "180/170/160/150", dpi: "480", btn: "58%"},
+        {name: "LOUD Jordan", sensi: "190/190/190/180", dpi: "850", btn: "45%"},
+        {name: "FF Antaryami", sensi: "200/200/190/180", dpi: "600", btn: "50%"}
+    ];
 
-    // Lógica para Sensi 200
-    let geral = Math.min(200, Math.floor(185 * (mult / 2)));
-    let redDot = Math.min(200, Math.floor(195 * (mult / 1.5)));
-    let dpi = Math.floor(450 * mult);
+    function injectSensi() {
+        const boost = document.getElementById('boost').value;
+        document.getElementById('display-master').style.display = 'block';
+        
+        // Lógica de cálculo 7.0x com base no limite de 200
+        document.getElementById('g-val').innerText = Math.min(200, 100 * (boost/2));
+        document.getElementById('r-val').innerText = Math.min(200, 110 * (boost/2));
+        document.getElementById('2x-val').innerText = "200";
+        document.getElementById('4x-val').innerText = "200";
+        document.getElementById('dpi-val').innerText = (400 * boost);
+        document.getElementById('btn-val').innerText = boost > 5 ? "42%" : "50%";
+    }
 
-    document.getElementById('sensi-res').innerHTML = `<strong>Sensi Jogo:</strong> Geral ${geral} | Red Dot ${redDot} | 2x: 200 | 4x: 180`;
-    document.getElementById('dpi-res').innerHTML = `<strong>DPI Recomendada:</strong> ${dpi} (Ajuste nas Opções de Programador)`;
-    document.getElementById('recoil-res').innerHTML = `⚙️ AJUSTE RECTO: Velocidade de cursor no 12/12 + Supressão Ativada (0.1s). Isso trava a mira na cabeça e evita o 'peito'.`;
-}
-
-function getPro(name) {
-    const info = document.getElementById('pro-info');
-    const db = {
-        'Two9': "Sensi 200 em tudo | DPI 720 | Botão de Atirar 45% (Foco em Desert Eagle).",
-        'White444': "Sensi Geral 190 | DPI 1200 | Multiplicador de Toque 1.5x (Capa Instantâneo).",
-        'B4K': "Sensi 100 (Estilo clássico) | DPI 800 | Foco em estabilidade de FPS.",
-        'Syoa': "Sensi 200 | DPI 600 | Especialista em SMG e movimentação rápida.",
-        'Rai': "Sensi 150 | DPI 960 | Foco em Sniper (AWM sem delay).",
-        'Mino': "Sensi 200 | DPI 500 | Botão de Atirar 52% (Estabilidade em AR)."
-    };
-    info.innerHTML = `<strong>Config de ${name}:</strong> ${db[name]}`;
-}
+    // Carregar biblioteca automaticamente
+    const lib = document.getElementById('pro-library');
+    players.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'pro-card';
+        card.onclick = () => alert(`Sensi de ${p.name}: ${p.sensi}\nDPI: ${p.dpi}\nBotão: ${p.btn}`);
+        card.innerHTML = `<div class="pro-name">${p.name}</div><div style="font-size:0.8rem">VER CONFIGURAÇÃO ➜</div>`;
+        lib.appendChild(card);
+    });
 </script>
+</body>
+</html>
