@@ -3,101 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linx 7s - Global Panel 2026</title>
+    <title>Linx 7S Ultimate - V7.3</title>
     <style>
-        :root { --neon: #00f2ff; --purple: #9d4edd; --gold: #ffb703; --bg: #020202; }
-        body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; padding: 15px; margin: 0; }
-        .panel { width: 100%; max-width: 420px; background: #080808; border: 1px solid var(--purple); border-radius: 15px; padding: 20px; box-shadow: 0 0 40px rgba(157, 78, 221, 0.2); }
+        :root { --purple: #8a2be2; --dark: #0a0a0a; --neon: #39ff14; }
+        body { background: #000; color: #fff; font-family: sans-serif; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
         
-        h1 { color: var(--neon); text-align: center; font-size: 24px; letter-spacing: 2px; margin: 0; }
-        .tag { text-align: center; font-size: 9px; color: var(--gold); margin-bottom: 15px; text-transform: uppercase; font-weight: bold; }
-
-        .module { background: #111; padding: 12px; border-radius: 10px; margin-bottom: 12px; border: 1px solid #222; }
-        .module-h { font-size: 11px; color: var(--purple); font-weight: bold; margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
-
-        /* Estilo dos Controles */
-        select, input[type=range] { width: 100%; background: #1a1a1a; color: #fff; border: 1px solid #333; padding: 8px; border-radius: 6px; margin-top: 5px; outline: none; }
-        .row { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; font-size: 12px; color: #ccc; }
-        .check { width: 18px; height: 18px; accent-color: var(--neon); }
-
-        /* Botões de Comando */
-        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .btn { padding: 14px; border-radius: 8px; font-weight: bold; border: none; cursor: pointer; text-transform: uppercase; font-size: 11px; transition: 0.3s; }
-        .btn-inj { background: var(--purple); color: #fff; grid-column: span 2; box-shadow: 0 4px 15px rgba(157, 78, 221, 0.4); }
-        .btn-ff { background: #39ff14; color: #000; box-shadow: 0 4px 15px rgba(57, 255, 20, 0.3); }
-        .btn-max { background: var(--neon); color: #000; box-shadow: 0 4px 15px rgba(0, 242, 255, 0.3); }
+        .menu-container { width: 360px; background: var(--dark); border: 2px solid var(--purple); border-radius: 5px; display: flex; flex-direction: column; position: relative; }
         
-        #terminal { font-family: 'Courier New', monospace; font-size: 10px; color: #0f0; background: #000; padding: 10px; border-radius: 5px; margin-top: 15px; min-height: 50px; border: 1px solid #1a1a1a; overflow: hidden; }
+        /* Barra de Título */
+        .header { background: var(--purple); padding: 5px; font-size: 10px; display: flex; justify-content: space-between; font-weight: bold; }
+        
+        .main-content { display: flex; min-height: 250px; }
+
+        /* Barra Lateral de Ícones */
+        .sidebar { width: 50px; background: #1a1a1a; display: flex; flex-direction: column; align-items: center; border-right: 1px solid #333; }
+        .icon-btn { padding: 15px 0; color: var(--purple); cursor: pointer; font-size: 18px; }
+
+        /* Área de Funções */
+        .options { flex: 1; padding: 15px; font-size: 12px; }
+        .row { display: flex; justify-content: space-between; margin-bottom: 10px; align-items: center; }
+        
+        input[type="range"] { width: 100px; accent-color: var(--purple); }
+        select { background: #222; color: #fff; border: 1px solid var(--purple); font-size: 10px; }
+
+        /* Módulos de Segurança */
+        .security-box { border: 1px solid var(--neon); padding: 10px; border-radius: 5px; margin-top: 10px; background: #051505; }
+        .security-title { color: var(--neon); font-size: 9px; font-weight: bold; margin-bottom: 5px; }
+
+        /* Botão Iniciar */
+        .btn-start { width: 90%; margin: 10px auto; padding: 12px; background: transparent; border: 2px solid var(--neon); color: var(--neon); font-weight: bold; cursor: pointer; text-transform: uppercase; border-radius: 5px; }
+        .btn-start:hover { background: var(--neon); color: #000; box-shadow: 0 0 15px var(--neon); }
+
+        #console { font-size: 9px; color: #444; text-align: center; padding-bottom: 5px; }
     </style>
 </head>
 <body>
 
-<div class="panel">
-    <h1>LINX 7S</h1>
-    <div class="tag">Global Hub - 2026 Updated</div>
-
-    <div class="module">
-        <div class="module-h">🌍 BASE DE CONFIGURAÇÃO (GLOBAL)</div>
-        <select id="region">
-            <option value="br">Brasil (Foco em Headshot/Capa)</option>
-            <option value="indo">Indonésia (Movimentação/Fast Click)</option>
-            <option value="thai">Tailândia (Precisão Extrema/DPI)</option>
-            <option value="latam">LATAM (Estabilidade/No Recoil)</option>
-        </select>
+<div class="menu-container" id="painel">
+    <div class="header">
+        <span>▼ LINX 7S ULTIMATE - STEALTH EDITION</span>
+        <span>X</span>
     </div>
-
-    <div class="module">
-        <div class="module-h">🎯 AUXÍLIOS DE MIRA & FOV</div>
-        <div class="row"><span>Aim Lock (Focar na Cabeça)</span> <input type="checkbox" class="check" checked></div>
-        <div class="row"><span>Aim FOV (Raio 360°)</span> <input type="range" min="30" max="360" value="150"></div>
-        <div class="row"><span>Suavizador XY (Sensi 200)</span> <input type="checkbox" class="check" checked></div>
-    </div>
-
-    <div class="module">
-        <div class="module-h">⚙️ REGEDIT & SYSTEM BYPASS</div>
-        <div class="row"><span>Limpar Logs de Ban (Anti-Detect)</span> <input type="checkbox" class="check" checked></div>
-        <div class="row"><span>Otimizar DPI Redmi A3x</span> <input type="checkbox" class="check"></div>
-        <div class="row"><span>Forçar 90 FPS (Display Fix)</span> <input type="checkbox" class="check"></div>
-    </div>
-
-    <button class="btn btn-inj" onclick="injetarTudo()">Injetar Módulos Globais</button>
-    
-    <div class="btn-group">
-        <button class="btn btn-max" onclick="alert('Sensibilidade calibrada em 192 (Geral)!')">Calibrar Sensi</button>
-        <button class="btn btn-ff" onclick="abrirJogo()">🎮 Abrir Free Fire</button>
-    </div>
-
-    <div id="terminal">Aguardando comando...</div>
-</div>
-
-<script>
-    function injetarTudo() {
-        const t = document.getElementById('terminal');
-        const r = document.getElementById('region').value;
-        const logs = [
-            `> Conectando ao servidor ${r.toUpperCase()}...`,
-            "> Baixando configurações de DPI 2026...",
-            "> Otimizando registro do sistema Android...",
-            "> Aplicando Bypass Anti-Ban v4.2...",
-            "> SISTEMA LINX 7S ATIVO NO FUNDO!"
-        ];
-        
-        let i = 0;
-        let timer = setInterval(() => {
-            t.innerHTML = logs[i];
-            i++;
-            if(i >= logs.length) {
-                clearInterval(timer);
-                alert("Módulos Injetados com Sucesso!");
-            }
-        }, 800);
-    }
-
-    function abrirJogo() {
-        // Abre o Free Fire direto (v2026 compatible)
-        window.location.href = "intent://#Intent;package=com.dts.freefireth;scheme=android-app;end";
-    }
-</script>
-
-</body>
-</html>
