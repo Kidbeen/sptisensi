@@ -3,44 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linx 7S Ultimate - V7.3</title>
+    <title>Painel Linx7s - Created by Mércio</title>
     <style>
         :root { --purple: #8a2be2; --dark: #0a0a0a; --neon: #39ff14; }
-        body { background: #000; color: #fff; font-family: sans-serif; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        body { background: #000; color: #fff; font-family: sans-serif; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
         
-        .menu-container { width: 360px; background: var(--dark); border: 2px solid var(--purple); border-radius: 5px; display: flex; flex-direction: column; position: relative; }
+        /* O Container Flutuante e Arrastável */
+        .floating-menu { width: 320px; background: var(--dark); border: 2px solid var(--purple); border-radius: 5px; position: fixed; top: 100px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; cursor: move; /* Indica que é arrastável */ box-shadow: 0 0 20px rgba(138, 43, 226, 0.5); z-index: 9999; }
         
-        /* Barra de Título */
-        .header { background: var(--purple); padding: 5px; font-size: 10px; display: flex; justify-content: space-between; font-weight: bold; }
-        
-        .main-content { display: flex; min-height: 250px; }
+        /* Barra de Título (Área para Segurar e Arrastar) */
+        .header { background: var(--purple); padding: 5px 10px; font-size: 10px; display: flex; justify-content: space-between; font-weight: bold; -webkit-user-select: none; user-select: none; }
+        .btn-close { cursor: pointer; color: #fff; font-weight: bold; }
+
+        .main-content { display: flex; min-height: 200px; }
 
         /* Barra Lateral de Ícones */
         .sidebar { width: 50px; background: #1a1a1a; display: flex; flex-direction: column; align-items: center; border-right: 1px solid #333; }
-        .icon-btn { padding: 15px 0; color: var(--purple); cursor: pointer; font-size: 18px; }
+        .icon-btn { padding: 12px 0; color: var(--purple); cursor: pointer; font-size: 16px; transition: 0.3s; }
+        .icon-btn:hover { color: #fff; background: rgba(138, 43, 226, 0.3); width: 100%; text-align: center; }
 
         /* Área de Funções */
         .options { flex: 1; padding: 15px; font-size: 12px; }
-        .row { display: flex; justify-content: space-between; margin-bottom: 10px; align-items: center; }
+        .row { display: flex; justify-content: space-between; margin-bottom: 8px; align-items: center; }
         
-        input[type="range"] { width: 100px; accent-color: var(--purple); }
-        select { background: #222; color: #fff; border: 1px solid var(--purple); font-size: 10px; }
+        input[type="range"] { width: 90px; accent-color: var(--purple); }
+        select { background: #222; color: #fff; border: 1px solid var(--purple); font-size: 10px; padding: 3px; }
+        .check { width: 16px; height: 16px; accent-color: var(--purple); cursor: pointer; }
 
         /* Módulos de Segurança */
-        .security-box { border: 1px solid var(--neon); padding: 10px; border-radius: 5px; margin-top: 10px; background: #051505; }
+        .security-box { border: 1px solid var(--neon); padding: 8px; border-radius: 5px; margin-top: 10px; background: rgba(5, 21, 5, 0.8); }
         .security-title { color: var(--neon); font-size: 9px; font-weight: bold; margin-bottom: 5px; }
 
         /* Botão Iniciar */
-        .btn-start { width: 90%; margin: 10px auto; padding: 12px; background: transparent; border: 2px solid var(--neon); color: var(--neon); font-weight: bold; cursor: pointer; text-transform: uppercase; border-radius: 5px; }
-        .btn-start:hover { background: var(--neon); color: #000; box-shadow: 0 0 15px var(--neon); }
+        .btn-start { width: 90%; margin: 10px auto; padding: 10px; background: transparent; border: 2px solid var(--neon); color: var(--neon); font-weight: bold; cursor: pointer; text-transform: uppercase; border-radius: 5px; transition: 0.3s; }
+        .btn-start:hover { background: var(--neon); color: #000; box-shadow: 0 0 10px var(--neon); }
 
-        #console { font-size: 9px; color: #444; text-align: center; padding-bottom: 5px; }
+        #console { font-size: 9px; color: #666; text-align: center; padding-bottom: 5px; font-family: monospace; }
+        
+        /* Rodapé de Crédito */
+        .footer { font-size: 8px; color: rgba(255, 255, 255, 0.5); text-align: center; padding: 5px 0; border-top: 1px solid #222; }
     </style>
 </head>
 <body>
 
-<div class="menu-container" id="painel">
-    <div class="header">
-        <span>▼ LINX 7S ULTIMATE - STEALTH EDITION</span>
-        <span>X</span>
+<div class="floating-menu" id="painelMenu">
+    <div class="header" id="painelHeader">
+        <span>▼ Painel Linx7s (Criado por Mércio) v7.3</span>
+        <span class="btn-close" onclick="alert('Funcionalidade de fechar em breve!')">X</span>
     </div>
+
+    <div class="main-content">
+        <div class="sidebar">
+            <div class="icon-btn" title="Aim Assist">🎯</div>
+            <div class="icon-btn" title="Visuals">👁️</div>
+            <div class="icon-btn" title="System">⚙️</div>
+            <div class="icon-btn" title="Profile">👤</div>
+        </div>
+
+        <div class="options">
+            <div class="row">
+                <span>Ativar Aimbot</span> <input type="checkbox" class="check" checked>
+                <span>Mostrar Fov</span> <input type="checkbox" class="check" checked>
+            </div>
+            <div class="row">
+                <span>Aimbot Legit</span> <input type="checkbox" class="check">
+                <span>Aimbot Visível</span> <input type="checkbox" class="check">
+            </div>
+            <div class="row">
+                <span>Regular Fov</span> <input type="range" min="0" max="100" value="70">
+            </div>
+            <div class="row">
+                <span>Puxar para:</span>
+                <select>
+                    <option>Cabeça (Headshot)</option>
+                    <option>Pescoço (Estabilizar)</option>
+                    <option>Peito (Grudar)</option>
+                </select>
+            </div>
+
+            <div class="security-box">
+                <div class="security-title">🛡️ SECURITY & STEALTH MODULE</div>
+                <div class="row" style="font-size: 9px; color: var(--neon);">
+                    <span>ACTIVE ANTI-BAN ENGINE</span>
+                    <span style="font-weight: bold; text-shadow: 0 0 5px var(--neon);">ATIVADO</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn-start" onclick="iniciarTudo()">▶ INICIAR FREE FIRE</button>
+    <div id="console">Sistema Seguro - Standby</div>
+    <div class="footer">Projeto por Mércio - v7.3</div>
+</div>
+
+<script>
+    // --- LÓGICA DO PAINEL ARRASTÁVEL (DRAG & DROP) ---
+    dragElement(document.getElementById("painelMenu"));
+
+    function dragElement(elmnt) {
+        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        if (document.getElementById("painelHeader")) {
+            // Segura na barra de título (header) para arrastar
+            document.getElementById("painelHeader").onmousedown = dragMouseDown;
+        } else {
+            // Se não tiver header, segura no painel todo
+            elmnt.onmousedown = dragMouseDown;
+        }
+
+        function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // Pega a posição inicial do mouse
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            // Chama a função que mexe quando o mouse move
+            document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // Calcula a nova posição do cursor
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            // Define a nova posição do elemento
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        }
+
+        function closeDragElement() {
+            // Para de mexer quando solta o mouse
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+    }
+
+    // --- FUNÇÕES DE AÇÃO DO PAINEL ---
+    function iniciarTudo() {
+        const c = document.getElementById('console');
+        c.innerText = "Limpando logs e injetando... v7.3";
+        c.style.color = "#39ff14";
+
+        setTimeout(function() {
+            // Tenta abrir o Free Fire v2026 direto
+            window.location.href = "intent://#Intent;package=com.dts.freefireth;scheme=android-app;end";
+            
+            // Fallback se falhar
+            setTimeout(function() {
+                window.location.href = "market://details?id=com.dts.freefireth";
+            }, 1000);
+        }, 1500);
+    }
+</script>
+
+</body>
+    </html>
+    
