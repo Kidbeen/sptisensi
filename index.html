@@ -1,114 +1,87 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SENSITIVITY GOD V5 - SUPREMACIA FF</title>
+    <title>Linx 7s - System</title>
     <style>
-        :root { --neon: #00ff41; --bg: #050505; --card: #111; }
-        body { background: var(--bg); color: white; font-family: 'Orbitron', sans-serif; margin: 0; padding: 20px; text-transform: uppercase; }
-        .container { max-width: 1200px; margin: auto; border: 4px solid var(--neon); box-shadow: 0 0 20px var(--neon); border-radius: 20px; padding: 30px; }
+        :root { --main: #7209b7; --neon: #4cc9f0; --bg: #020202; }
+        body { background: var(--bg); color: #fff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
         
-        h1 { font-size: 3rem; text-align: center; color: var(--neon); text-shadow: 0 0 15px var(--neon); margin-bottom: 40px; }
+        .panel { width: 340px; background: linear-gradient(145deg, #0f0f0f, #1a1a1a); border: 1px solid var(--main); border-radius: 12px; padding: 20px; box-shadow: 0 0 30px rgba(114, 9, 183, 0.4); }
         
-        /* GERADOR GIGANTE */
-        .generator-box { background: var(--card); padding: 40px; border-radius: 15px; border-left: 10px solid var(--neon); margin-bottom: 40px; }
-        .generator-box h2 { font-size: 2rem; color: #fff; }
-        select, input, button { width: 100%; padding: 20px; font-size: 1.5rem; margin-top: 20px; border-radius: 10px; cursor: pointer; }
-        select { background: #222; color: var(--neon); border: 2px solid var(--neon); }
-        button { background: var(--neon); color: black; font-weight: bold; border: none; transition: 0.3s; }
-        button:hover { transform: scale(1.02); box-shadow: 0 0 30px var(--neon); }
+        .header { text-align: center; border-bottom: 1px solid #333; margin-bottom: 20px; padding-bottom: 10px; }
+        .header h1 { font-size: 22px; color: var(--neon); text-transform: uppercase; letter-spacing: 2px; margin: 0; }
+        .header span { font-size: 10px; color: var(--main); font-weight: bold; }
 
-        /* PAINEL DE RESULTADOS (Onde a Sensi completa aparece) */
-        #display-master { display: none; margin-top: 30px; background: #000; padding: 30px; border: 2px dashed var(--neon); font-size: 1.8rem; line-height: 1.6; }
-        .highlight { color: var(--neon); font-weight: bold; }
+        .group { background: #111; padding: 12px; border-radius: 8px; margin-bottom: 15px; border-left: 3px solid var(--main); }
+        label { font-size: 12px; color: #aaa; text-transform: uppercase; }
 
-        /* BIBLIOTECA EM GRADE (MUITOS JOGADORES) */
-        .library-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 40px; }
-        .pro-card { background: #1a1a1a; padding: 20px; border: 1px solid #333; border-radius: 10px; cursor: pointer; transition: 0.3s; }
-        .pro-card:hover { border-color: var(--neon); background: #222; }
-        .pro-name { color: var(--neon); font-size: 1.3rem; margin-bottom: 5px; }
+        /* Sliders */
+        input[type=range] { width: 100%; accent-color: var(--neon); margin-top: 10px; }
+
+        /* Switches */
+        .row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+        .switch { width: 40px; height: 20px; appearance: none; background: #333; border-radius: 20px; position: relative; cursor: pointer; transition: .3s; }
+        .switch:checked { background: var(--main); }
+        .switch::before { content: ''; position: absolute; width: 16px; height: 16px; background: #fff; border-radius: 50%; top: 2px; left: 2px; transition: .3s; }
+        .switch:checked::before { left: 22px; }
+
+        /* Botão */
+        .btn-exe { width: 100%; padding: 15px; background: var(--main); border: none; color: #fff; font-weight: bold; border-radius: 5px; cursor: pointer; text-transform: uppercase; box-shadow: 0 5px 15px rgba(114, 9, 183, 0.4); }
+        .btn-exe:active { transform: translateY(2px); }
+
+        #log { font-size: 11px; color: #4cc9f0; margin-top: 15px; font-family: monospace; min-height: 40px; border-top: 1px solid #222; padding-top: 10px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>🔥 SENSITIVITY GOD V5.0 🔥</h1>
-
-    <div class="generator-box">
-        <h2>🚀 GERADOR DE SENSI ULTRA 7.0X</h2>
-        <p>Ajuste o multiplicador para destravar a mira "Full Red":</p>
-        <select id="boost">
-            <option value="1">1.0x - Padrão Mobile</option>
-            <option value="3">3.0x - Velocidade Intermediária</option>
-            <option value="5">5.0x - Insano (Apenas Pros)</option>
-            <option value="7">7.0x - MODO DEUS (MIRA NÃO PINA)</option>
-        </select>
-        <button onclick="injectSensi()">INJETAR CONFIGURAÇÃO NO SITE</button>
-
-        <div id="display-master">
-            <h3 style="color:red">SISTEMA ATUALIZADO: SENSI 200 REVELADA</h3>
-            <p>➜ GERAL: <span id="g-val" class="highlight"></span></p>
-            <p>➜ RED DOT: <span id="r-val" class="highlight"></span></p>
-            <p>➜ MIRA 2X: <span id="2x-val" class="highlight"></span></p>
-            <p>➜ MIRA 4X: <span id="4x-val" class="highlight"></span></p>
-            <p>➜ DPI RECOMENDADA: <span id="dpi-val" class="highlight"></span></p>
-            <p>➜ BOTÃO DE TIRO: <span id="btn-val" class="highlight"></span></p>
-            <p style="font-size: 1.2rem; border-top: 1px solid #333; padding-top: 10px;">
-                ⚙️ <span class="highlight">AJUSTE NO RECOIL:</span> Velocidade do ponteiro no Máximo + Supressão em 0.1s. 
-                Isso estabiliza o tiro para sair 100% RECTO sem espalhar as balas.
-            </p>
-        </div>
+<div class="panel">
+    <div class="header">
+        <h1>Linx 7s</h1>
+        <span>SISTEMA DE ALTA PERFORMANCE</span>
     </div>
 
-    <h2>🌍 BIBLIOTECA GLOBAL (TODOS OS FAMOSOS)</h2>
-    <div id="pro-library" class="library-grid">
-        </div>
+    <div class="group">
+        <label>Calibração de DPI: <span id="dv">600</span></label>
+        <input type="range" min="360" max="1200" value="600" oninput="document.getElementById('dv').innerText = this.value">
+    </div>
+
+    <div class="group">
+        <div class="row"><label>Regedit Mobile</label> <input type="checkbox" class="switch" id="opt1"></div>
+        <div class="row"><label>Aceleração XY</label> <input type="checkbox" class="switch" id="opt2"></div>
+        <div class="row"><label>No Lag Engine</label> <input type="checkbox" class="switch" id="opt3"></div>
+        <div class="row"><label>Smooth Aim</label> <input type="checkbox" class="switch" id="opt4"></div>
+    </div>
+
+    <button class="btn-exe" onclick="executar()">Injetar Linx 7s</button>
+    <div id="log">Status: Standby...</div>
 </div>
 
 <script>
-    // BANCO DE DADOS MASSIVO
-    const players = [
-        {name: "Two9", sensi: "200/200/200/200", dpi: "720", btn: "45%"},
-        {name: "Nobru", sensi: "185/192/170/165", dpi: "512", btn: "52%"},
-        {name: "White444", sensi: "200/180/200/200", dpi: "1200", btn: "40%"},
-        {name: "Thurzin", sensi: "195/200/200/180", dpi: "900", btn: "48%"},
-        {name: "Bak", sensi: "170/160/150/140", dpi: "800", btn: "55%"},
-        {name: "Syaz", sensi: "200/200/200/190", dpi: "800", btn: "44%"},
-        {name: "Ruok FF", sensi: "200/200/200/200", dpi: "1150", btn: "38%"},
-        {name: "M8N", sensi: "190/185/200/200", dpi: "960", btn: "42%"},
-        {name: "Vincenzo", sensi: "200/195/200/200", dpi: "600", btn: "50%"},
-        {name: "Syoa", sensi: "200/200/200/200", dpi: "700", btn: "47%"},
-        {name: "Mino", sensi: "180/175/190/200", dpi: "500", btn: "53%"},
-        {name: "Broken", sensi: "200/200/200/200", dpi: "1440", btn: "35%"},
-        {name: "Raistar", sensi: "200/190/200/185", dpi: "1000", btn: "40%"},
-        {name: "Badge99", sensi: "180/170/160/150", dpi: "480", btn: "58%"},
-        {name: "LOUD Jordan", sensi: "190/190/190/180", dpi: "850", btn: "45%"},
-        {name: "FF Antaryami", sensi: "200/200/190/180", dpi: "600", btn: "50%"}
-    ];
-
-    function injectSensi() {
-        const boost = document.getElementById('boost').value;
-        document.getElementById('display-master').style.display = 'block';
+    function executar() {
+        const log = document.getElementById('log');
+        const tasks = [
+            "> Verificando hardware...",
+            "> Otimizando resposta do touch...",
+            "> Aplicando Regedit Linx 7s...",
+            "> Limpando processos de fundo...",
+            "> SISTEMA 100% OPERACIONAL!"
+        ];
         
-        // Lógica de cálculo 7.0x com base no limite de 200
-        document.getElementById('g-val').innerText = Math.min(200, 100 * (boost/2));
-        document.getElementById('r-val').innerText = Math.min(200, 110 * (boost/2));
-        document.getElementById('2x-val').innerText = "200";
-        document.getElementById('4x-val').innerText = "200";
-        document.getElementById('dpi-val').innerText = (400 * boost);
-        document.getElementById('btn-val').innerText = boost > 5 ? "42%" : "50%";
+        let i = 0;
+        let timer = setInterval(() => {
+            log.innerHTML = tasks[i];
+            i++;
+            if(i >= tasks.length) {
+                clearInterval(timer);
+                // Função "funcional" para simular carga no sistema
+                window.scrollTo(0, 0); 
+                alert("O Linx 7s foi injetado! Não feche esta aba para manter a otimização ativa.");
+            }
+        }, 1000);
     }
-
-    // Carregar biblioteca automaticamente
-    const lib = document.getElementById('pro-library');
-    players.forEach(p => {
-        const card = document.createElement('div');
-        card.className = 'pro-card';
-        card.onclick = () => alert(`Sensi de ${p.name}: ${p.sensi}\nDPI: ${p.dpi}\nBotão: ${p.btn}`);
-        card.innerHTML = `<div class="pro-name">${p.name}</div><div style="font-size:0.8rem">VER CONFIGURAÇÃO ➜</div>`;
-        lib.appendChild(card);
-    });
 </script>
+
 </body>
 </html>
