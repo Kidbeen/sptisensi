@@ -3,109 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linx 7s Pioneiro - v8.0 Black Edition</title>
+    <title>Linx 7s - Supreme Edition</title>
     <style>
-        :root { --purple: #8a2be2; --cyan: #00f2ff; --dark: #0a0a0a; --neon-g: #39ff14; }
-        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
+        @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+        :root { --red: #ff0000; --dark-red: #660000; --bg: #050505; --neon: 0 0 15px #ff0000; }
+        body { background: #000; color: #fff; font-family: 'Anton', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
         
-        /* O Container Principal */
-        .painel-container { width: 340px; background: var(--dark); border: 2px solid var(--purple); border-radius: 10px; display: flex; flex-direction: column; box-shadow: 0 0 25px rgba(138, 43, 226, 0.4); }
+        .box { width: 340px; background: var(--bg); border: 2px solid var(--red); border-radius: 12px; box-shadow: var(--neon); overflow: hidden; position: relative; }
+
+        /* TELA DE LOGIN */
+        #login-div { padding: 35px; text-align: center; }
+        .logo-xit { color: var(--red); font-size: 32px; text-shadow: var(--neon); margin-bottom: 20px; letter-spacing: 3px; }
+        input { width: 85%; padding: 12px; margin: 10px 0; background: #0a0a0a; border: 1px solid var(--dark-red); color: #fff; border-radius: 5px; text-align: center; outline: none; }
+        .btn-auth { width: 95%; padding: 15px; background: linear-gradient(to bottom, var(--red), var(--dark-red)); border: none; color: #fff; font-weight: bold; border-radius: 5px; cursor: pointer; text-transform: uppercase; font-family: 'Anton', sans-serif; margin-top: 15px; }
+
+        /* PAINEL DE FUNÇÕES */
+        #panel-div { display: none; }
+        .p-header { background: linear-gradient(to right, var(--dark-red), var(--red)); color: #fff; padding: 12px; text-align: center; font-size: 14px; text-transform: uppercase; border-bottom: 2px solid #000; }
+        .p-body { padding: 15px; max-height: 500px; overflow-y: auto; }
+
+        /* CATEGORIAS */
+        .mod { background: rgba(15,15,15,0.9); padding: 12px; border-radius: 8px; margin-bottom: 12px; border: 1px solid #222; border-left: 4px solid var(--red); }
+        .mod-title { font-size: 10px; color: var(--red); font-weight: bold; margin-bottom: 10px; text-transform: uppercase; }
         
-        /* Barra de Título */
-        .header { background: var(--purple); padding: 8px; font-size: 11px; display: flex; justify-content: center; font-weight: bold; border-radius: 8px 8px 0 0; }
+        .row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 11px; font-family: sans-serif; }
+        select { background: #000; color: #fff; border: 1px solid #333; padding: 6px; border-radius: 4px; font-size: 11px; width: 65%; outline: none; }
+        input[type="checkbox"] { accent-color: var(--red); width: 18px; height: 18px; }
+
+        /* BOTÃO INJETAR */
+        .btn-inject { width: 100%; padding: 18px; background: linear-gradient(to bottom, #ff0000, #440000); border: 2px solid #fff; color: #fff; font-weight: bold; border-radius: 10px; cursor: pointer; text-transform: uppercase; font-family: 'Anton', sans-serif; font-size: 15px; margin-top: 10px; box-shadow: 0 0 15px rgba(255,0,0,0.5); }
         
-        /* Módulo de Funções */
-        .main-content { padding: 20px; font-size: 13px; }
-        .module { background: #151515; padding: 15px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #222; border-left: 3px solid var(--cyan); }
-        .module-title { color: var(--cyan); font-size: 10px; text-transform: uppercase; margin-bottom: 8px; font-weight: bold; }
-
-        .row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        select { background: #000; color: #fff; border: 1px solid #333; padding: 5px; border-radius: 5px; font-size: 11px; }
-
-        /* Módulos de Segurança */
-        .security-box { border: 1px solid var(--neon-g); padding: 10px; border-radius: 8px; margin-top: 15px; background: rgba(5, 21, 5, 0.8); }
-        .security-title { color: var(--neon-g); font-size: 9px; font-weight: bold; margin-bottom: 5px; }
-
-        /* Botão Iniciar */
-        .btn-start { width: 100%; padding: 15px; background: transparent; border: 2px solid var(--cyan); color: var(--cyan); font-weight: bold; cursor: pointer; text-transform: uppercase; border-radius: 8px; transition: 0.3s; }
-        .btn-start:hover { background: var(--cyan); color: #000; box-shadow: 0 0 15px var(--cyan); }
-
-        #status-console { font-size: 10px; color: #666; text-align: center; margin-top: 15px; font-family: monospace; }
-        .credits { font-size: 8px; color: rgba(255, 255, 255, 0.4); text-align: center; padding: 8px; border-top: 1px solid #1a1a1a; margin-top: 10px; }
+        #log-status { font-size: 10px; color: #666; text-align: center; margin-top: 15px; font-family: monospace; }
+        .footer { font-size: 9px; color: #333; text-align: center; padding: 10px; border-top: 1px solid #111; font-family: sans-serif; }
     </style>
 </head>
 <body>
 
-<div class="painel-container">
-    <div class="header">▼ LINX 7S PIONEIRO (CRIADO POR MÉRCIO) v8.0</div>
-
-    <div class="main-content">
-        <div class="module">
-            <div class="module-title">🎯 SMART CALIBRATION (Capa Fácil)</div>
-            <div class="row">
-                <span>Comportamento Atual:</span>
-                <select id="simulaSensi">
-                    <option value="ideal">Mira Ideal (Padrão)</option>
-                    <option value="peito">Grudando Peito (Aumentar Sensi)</option>
-                    <option value="pina">Mira Pinando (Estabilizar)</option>
-                </select>
-            </div>
-            <div class="row">
-                <span>Alvo da Mira:</span>
-                <select id="alvoPrincipal">
-                    <option>Cabeça</option>
-                    <option>Pescoço</option>
-                </select>
-            </div>
+    <div class="box">
+        <div id="login-div">
+            <div class="logo-xit">LINX 7S</div>
+            <p style="font-size: 10px; color: #555; margin-top: -15px; text-transform: uppercase;">Supreme Private v14.0</p>
+            <input type="text" id="u" placeholder="USUÁRIO">
+            <input type="password" id="k" placeholder="KEY">
+            <button class="btn-auth" onclick="entrar()">DESBLOQUEAR ACESSO</button>
         </div>
 
-        <div class="security-box">
-            <div class="security-title">🛡️ SECURITY & STEALTH MODULE</div>
-            <div class="row" style="font-size: 10px; color: var(--neon-g);">
-                <span>ACTIVE ANTI-BAN ENGINE v7.3</span>
-                <span style="font-weight: bold; text-shadow: 0 0 5px var(--neon-g);">ATIVADO</span>
+        <div id="panel-div">
+            <div class="p-header">▼ FFH4X SUPREME (CRIADO POR MÉRCIO)</div>
+            <div class="p-body">
+                
+                <div class="mod">
+                    <div class="mod-title">🎯 COMBAT (AIMBOT)</div>
+                    <div class="row">
+                        <span>Local do Tiro:</span>
+                        <select id="target">
+                            <option value="head">Cabeça (100% HS)</option>
+                            <option value="neck">Pescoço (Estável)</option>
+                            <option value="chest">Peito (Legit)</option>
+                            <option value="feet">Pé (Troll)</option>
+                        </select>
+                    </div>
+                    <div class="row"><span>Aimbot (Auto-Lock)</span> <input type="checkbox" checked></div>
+                    <div class="row"><span>Aim FOV (360°)</span> <input type="checkbox"></div>
+                </div>
+
+                <div class="mod">
+                    <div class="mod-title">⚙️ REGEDIT & WEAPONS</div>
+                    <div class="row"><span>No Recoil (100%)</span> <input type="checkbox"></div>
+                    <div class="row"><span>Sensi DPI 200 (Supreme)</span> <input type="checkbox"></div>
+                    <div class="row"><span>Velocidade do Tiro</span> <input type="checkbox"></div>
+                </div>
+
+                <div class="mod">
+                    <div class="mod-title">👁️ VISUALS (ESP)</div>
+                    <div class="row"><span>ESP Linha (Skel)</span> <input type="checkbox"></div>
+                    <div class="row"><span>ESP Box (3D)</span> <input type="checkbox"></div>
+                    <div class="row"><span>Antena Hack (Head)</span> <input type="checkbox"></div>
+                </div>
+
+                <div class="mod" style="border-left-color: #fff;">
+                    <div class="mod-title">🛡️ SYSTEM SECURITY</div>
+                    <div class="row" style="color:#fff;">
+                        <span>Anti-Ban Bypass v14.0</span>
+                        <span style="color:var(--red); font-weight:bold;">ON</span>
+                    </div>
+                </div>
+
+                <button class="btn-inject" onclick="injetar()">▶ INJETAR & ABRIR FF</button>
+                <div id="log-status">Aguardando comando do Mércio...</div>
             </div>
+            <div class="footer">FFH4X Supreme Mozambique - Maputo 2026</div>
         </div>
     </div>
 
-    <button class="btn-start" onclick="iniciarTudo()">▶ INICIAR FREE FIRE (STEALTH)</button>
-    <div id="status-console">Aguardando injeção...</div>
-    <div class="credits">Design e Código por Mércio - v8.0</div>
-</div>
+    <script>
+        // --- CONFIGURAÇÃO DE ACESSO ---
+        const USER_OK = "Mércio"; 
+        const KEY_OK = "01"; 
 
-<script>
-    async function iniciarTudo() {
-        const console = document.getElementById('status-console');
-        const sensi = document.getElementById('simulaSensi').value;
-        const alvo = document.getElementById('alvoPrincipal').value;
+        function entrar() {
+            const user = document.getElementById('u').value;
+            const key = document.getElementById('k').value;
+            if(user === USER_OK && key === KEY_OK) {
+                document.getElementById('login-div').style.display = 'none';
+                document.getElementById('panel-div').style.display = 'block';
+            } else { alert("Acesso Negado!"); }
+        }
 
-        console.innerText = "> Calibrando balística inteligente...";
-        console.style.color = "#ffff00";
+        function injetar() {
+            const log = document.getElementById('log-status');
+            const target = document.getElementById('target').value;
+            log.innerText = "> INICIANDO BYPASS...";
+            log.style.color = "var(--red)";
 
-        setTimeout(async () => {
-            // Lógica Inteligente: Simula DPI/Touch
-            if(sensi === "peito") {
-                console.innerText = "> CAPA FÁCIL: Aumentando resposta vertical...";
-            } else if(sensi === "pina") {
-                console.innerText = "> ESTABILIZADO: Reduzindo dispersão de bala...";
-            } else {
-                console.innerText = "> CONFIGURAÇÃO IDEAL ATIVA: Foco em " + alvo.toUpperCase();
-            }
-            console.style.color = "#39ff14";
-
-            // Abre o jogo (Fallback se falhar no Redmi)
             setTimeout(() => {
-                // Tenta abrir o Free Fire v2026 direto
-                window.location.href = "intent://#Intent;package=com.dts.freefireth;scheme=android-app;end";
-                
-                // Fallback para Play Store se falhar no Redmi
+                log.innerText = "> CALIBRANDO TARGET: " + target.toUpperCase();
+                log.style.color = "#ff8080";
                 setTimeout(() => {
-                    window.location.href = "market://details?id=com.dts.freefireth";
-                }, 1000);
-            }, 1000);
-        }, 1500);
-    }
-</script>
-
+                    log.innerText = "> SCRIPTS INJETADOS COM SUCESSO!";
+                    log.style.color = "#ff0000";
+                    setTimeout(() => {
+                        window.location.href = "intent://#Intent;package=com.dts.freefireth;scheme=android-app;end";
+                    }, 1200);
+                }, 1500);
+            }, 2000);
+        }
+    </script>
 </body>
 </html>
